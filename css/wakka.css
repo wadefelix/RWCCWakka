@@ -1,0 +1,105 @@
+.additions {
+    background-color:#CCEFCC;
+}
+.deletions {
+    background-color:#FFFFCC;
+} 
+P, TD, LI, INPUT, SELECT, TEXTAREA {
+	line-height: 1.3
+}
+
+BODY {
+	font-size: 13px;
+	color: #000000;
+	background-color: #F8F8F8;
+}
+
+A {
+	color: #993333;
+}
+.additions {
+	color: #008800;
+}
+
+.deletions {
+	color: #880000;
+}
+
+.error {
+	color: #CC3333; font-weight: bold;
+}
+
+
+
+.page {
+	background-color: #FFFFFF;
+	border: 1px inset;
+	border-bottom: none;
+	border-top: none;
+}
+a{
+    text-decoration:none;
+}
+a:hover {
+    text-decoration:underline;
+}
+
+.footer {
+	background-color: #DDDDDD;
+	border: 1px inset;
+	border-top: none;
+	border-top: 1px solid #CCCCCC;
+}
+
+.commentsheader {
+	background-color: #DDDDDD;
+	border-left: 1px inset;
+	border-right: 1px inset;
+	border-top: 1px solid #CCCCCC;
+}
+
+.comment {
+	background-color: #EEEEEE;
+	border-left: 1px inset;
+	border-right: 1px inset;
+	border-top: 1px solid #CCCCCC;
+	border-bottom: 1px solid #EEEEEE;
+}
+
+.commentinfo {
+	color: #AAAAAA;
+}
+
+.commentform {
+	background-color: #EEEEEE;
+}
+.code {
+ border: 1px dashed #8cacbb;
+  color: Black;
+  background-color: #f7f9fa;
+}
+.notes {
+	color: #888800;
+}
+
+.revisioninfo {
+	color: #AAAAAA;
+}
+
+.copyright {
+	color: #AAAAAA;
+}
+
+.copyright A {
+	color: #AAAAAA;
+}
+
+.copyleft {
+        color: #AAAAAA;
+}
+
+.copyleft A {
+        color: #AAAAAA;
+}
+.origname {color:grey;}
+
