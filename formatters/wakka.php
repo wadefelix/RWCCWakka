@@ -105,7 +105,7 @@ if (!function_exists("wakka2callback"))
 				
 
 				}
-				$p=ereg_replace("\|\|","",$p);
+				$p=preg_replace("/\|\|/","",$p);
 				$p="<table $TableStyle><tr>\n".$p."</tr>\n</table>\n";
 				$s=preg_replace("/\|\|.*?\|\|\n/",$p,$s,1);
 								
