@@ -138,7 +138,7 @@ $rewritable=1;
     <tr> 
       <td></td>
       <td>Rewrite mode should be enabled if you are using CooCooWakka with URL rewriting. Do not enable it unless you know what is <a href="http://coo.hsfz.net/wiki/UrlRewriting">URL Rewritng</a>.
-      <?if(!$rewritable){?><br /><b>It is detected that your server is NOT supporting URL Rewriting.</b><?}?>
+      <?php if(!$rewritable){?><br /><b>It is detected that your server is NOT supporting URL Rewriting.</b><?php }?>
       </td>
     </tr>
     <tr> 

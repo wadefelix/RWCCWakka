@@ -69,7 +69,7 @@
       </tr>
       <?php echo $diff?>
     </table>
-        <?
+        <?php
         if ($added) {
             // remove blank lines
             $output .= "<br />\n<strong>"./*Additions:*/_MI_ADDITIONS."</strong><br />\n";

@@ -1,4 +1,4 @@
-<?
+<?php
 /*
 CooCooWakka's footer.
 You'd better not modify this file. Please edit myfooter.php (read myfooter.php.example).
@@ -79,7 +79,7 @@ if($this->method!="show" && $this->page){
 </div>
 
 <div class="custom_foot">
-<? @include "myfooter.php" //you see ?>
+<?php @include "myfooter.php" //you see ?>
 </div>
 
 <div class="last_foot">

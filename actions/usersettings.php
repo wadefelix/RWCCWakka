@@ -144,8 +144,8 @@
     <td></td> 
     <td><input type="submit" value="<?php  echo _MI_LOGIN_REG /*Login / Register*/ ?>" size="40" /></td> 
   </tr>
-<? if(!$this->GetConfigValue("open_register"))echo _MI_CLOSEREGISTER ?>
-<? if($this->GetConfigValue("open_register")){ ?> 
+<?php if(!$this->GetConfigValue("open_register"))echo _MI_CLOSEREGISTER ?>
+<?php if($this->GetConfigValue("open_register")){ ?> 
   <tr> 
     <td align="right"></td> 
     <td width="500"><?php echo $this->Format(_MI_REGTIPS/*"Stuff you only need to fill in when you're logging in for the first time (and thus signing up as a new user on this site)." */)?>
@@ -163,7 +163,7 @@
     <td></td> 
     <td><input type="submit" value="<?php  echo _MI_LOGIN_REG /*Login / Register*/?>" size="40" /></td> 
   </tr>
-<? } ?> 
+<?php } ?> 
 </table> 
     <?php
         print($this->FormClose());

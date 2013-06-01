@@ -73,7 +73,7 @@ By CooCooWakka <?php echo $this->GetConfigValue("coo_version");?>
 <div class="header">
 <!--for google adsense, put your adsense script to actions/googlead.php -->
 <span id="googlead_head" style="float:right;">
-<? @include "googlead.php" ?>
+<?php @include "googlead.php" ?>
 </span>
 <!-- title -->
 <a name="ccwakka_page_top"></a>
