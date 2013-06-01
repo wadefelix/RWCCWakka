@@ -446,7 +446,7 @@
         function tinyHref($source) {
             //Get Absolute URL by cooyeah Nov 2nd 2003
             $url = $this->GetConfigValue("base_path");
-            if (!eregi(".*/$", $url) && !eregi("^/.*", $source))$url .= "/";
+            if (!preg_match("/.*\/$/", $url) && !preg_match("/^\/.*/", $source))$url .= "/";
             return $url.$source;
         }
         function Link($tag, $method = "", $text = "", $track = 1, $icon = true) {

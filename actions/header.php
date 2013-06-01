@@ -35,7 +35,7 @@ print("\t<meta name=\"robots\" content=\"noindex, nofollow\">\n");
 /*  alternate stylesheet. activate it if you like
 if($handle=opendir("./css/")){
     while (false !== ($file = readdir($handle))) {
-        if(eregi("\.css$",$file) && $file<>"ccwakka.css"){
+        if(preg_match("/\.css$/",$file) && $file<>"ccwakka.css"){
 	echo "<link rel=\"alternate stylesheet\" media=\"screen\" title=\"".str_replace(".css","",$file)."\" href=\"".$this->tinyHref("/css/".$file)."\" />";
 }}}
 */

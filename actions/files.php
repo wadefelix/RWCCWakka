@@ -16,7 +16,7 @@
             $exts = $wakka->GetConfigValue("AllowUploadExts");
             $pos = strrpos($file_name, '.');
             $ext = substr($file_name, $pos+1, (strlen($file_name)-$pos-1));
-            $rs = eregi("^".$exts."$", $ext);
+            $rs = preg_match("/^".$exts."$/i", $ext);
             return $rs;
         }
     }

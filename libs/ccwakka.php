@@ -82,13 +82,13 @@ $useiconv=false;
 	
 		if($wakka->GetConfigValue("SpecialCharsetSupport")=="auto"){
 //		echo $wakka->GetConfigValue["charset"];
-			if(eregi("^gb",$wakka->GetConfigValue("charset"))){
+			if(preg_match("/^gb/i",$wakka->GetConfigValue("charset"))){
 				$prp=1;
 				//echo "HelloCoo";
-			}elseif($isiconv && eregi("^big5$",$wakka->GetConfigValue("charset"))){
+			}elseif($isiconv && preg_match("/^big5$/i",$wakka->GetConfigValue("charset"))){
                 $prp=1;
                 $useiconv=true;
-            }elseif($isiconv && eregi("^utf-8$",$wakka->GetConfigValue("charset"))){
+            }elseif($isiconv && preg_match("/^utf-8$/i",$wakka->GetConfigValue("charset"))){
                 $prp=1;
                 $useiconv=true;
             }

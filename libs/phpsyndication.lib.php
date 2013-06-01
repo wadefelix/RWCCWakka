@@ -240,7 +240,7 @@ if(!defined('_LIB_PHPSYNDICATION_LOADED'))
 		{
 			$data = $this->getData($fromcache=false);
 			$ret = '';
-			if(eregi("<title>([^<]+)</title>", $data, $regs))
+			if(preg_match("/<title>([^<]+)<\/title>/i", $data, $regs))
 			{
 				$title = $regs[1];
 				if(phpversion() >= 4)
@@ -250,7 +250,7 @@ if(!defined('_LIB_PHPSYNDICATION_LOADED'))
 				}
 				$fullTitle = $title;
 				if(strlen($title) > $this->itemLength) $title = $this->truncateText($title);
-				if(eregi("<link>([^<]+)</link>", $data, $regs))
+				if(preg_match("/<link>([^<]+)<\/link>/i", $data, $regs))
 				{
 					$link = "<a href='".$regs[1]."' target='_blank' title='".$fullTitle."'>".$title."</a>";
 					$ret = $link;
