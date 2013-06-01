@@ -507,7 +507,7 @@ $text = preg_replace("/<br \/>$/", "", trim($text));
 if(!function_exists("highlightString")){
 	function highlightString($buffer,$highlight) {
 		//$words = preg_split('/[ \t\n\(\)]+/', $highlight);
-		$words = split(' ', $highlight);
+		$words = explode(' ', $highlight);
 		foreach ($words as $word) {
 			$pregs[]="/(".preg_quote($word,"/").")/i";
 		}

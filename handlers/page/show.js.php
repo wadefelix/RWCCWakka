@@ -3,7 +3,7 @@ header("Content-type: application/x-javascript");
 if ($this->HasAccess("read")) {
     if ($this->page) {
         $body=$this->Format($this->page['body']);
-        $lines=split("\n",$body);
+        $lines=explode("\n",$body);
         foreach($lines as $line){
             if($line){
                 $line = str_replace("\n", "",  $line);

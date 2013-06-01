@@ -69,7 +69,7 @@ switch ($_REQUEST['action'])
         $filename = basename($path);
        	if(filesize($path)<1024*1024){
         header('MIME-Version: 1.0');
-	$afn = split("\.",$filename);
+	$afn = preg_split("/\./",$filename);
         $ext =  strtolower($afn[count($afn)-1]);
         $mime_type = $mime_types[$ext];
         if ($mime_type == '')

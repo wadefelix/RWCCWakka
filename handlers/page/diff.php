@@ -52,7 +52,7 @@
         $output .= "<strong>"._MI_COMPARING." <a href=\"".$this->href("", "", "time=".urlencode($pageA["time"]))."\">".$pageA["time"]."</a> "._MI_TO." <a href=\"".$this->href("", "", "time=".urlencode($pageB["time"]))."\">".$pageB["time"]."</a></strong><br />\n";
         $right="<a href=\"".$this->href("", "", "time=".urlencode($pageA["time"]))."\">".$pageA["time"]."</a> ".$pageA['user'];
         $left="<a href=\"".$this->href("", "", "time=".urlencode($pageB["time"]))."\">".$pageB["time"]."</a> ".$pageB['user'];
-        $df  = new Diff(split("\n",htmlspecialchars($bodyB)),split("\n",htmlspecialchars($bodyA)));
+        $df  = new Diff(explode("\n",htmlspecialchars($bodyB)),explode("\n",htmlspecialchars($bodyA)));
         $dformat = new TableDiffFormatter();
         $diff    = $dformat->format($df);
         print($output);

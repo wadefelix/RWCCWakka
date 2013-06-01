@@ -780,7 +780,7 @@ class HTML_QuickForm extends HTML_Common {
     function updateElementAttr($elements, $attrs)
     {
         if (is_string($elements)) {
-            $elements = split('[ ]?,[ ]?', $elements);
+            $elements = preg_split('/[ ]?,[ ]?/', $elements);
         }
         foreach ($elements as $element) {
             if (is_object($element) && is_subclass_of($element, 'HTML_QuickForm_element')) {
