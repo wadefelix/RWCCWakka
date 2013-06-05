@@ -111,6 +111,7 @@
         "default_css" => "wakka.css",
         "AutoAddAnchor" => "0",
         "AllowUploadExts" => "png|jpg|gif|bmp|exe|zip|rar|gz|tar|bz2|rtf|doc|txt|mp3|rm|wma|wav",
+        "AllowUploadMaxFileSize" => "5242880",
         "ccuid" => md5(uniqid("")),
         "session_name" => uniqid("ccwakka"),
         "time_stamp_format" => "D F j, Y, g:i a",
