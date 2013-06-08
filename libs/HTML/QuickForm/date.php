@@ -101,8 +101,8 @@ class HTML_QuickForm_date extends HTML_QuickForm_group
         'de'    => array (
             'weekdays_short'=> array ('So', 'Mon', 'Di', 'Mi', 'Do', 'Fr', 'Sa'),
             'weekdays_long' => array ('Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'),
-            'months_short'  => array ('Jan', 'Feb', 'März', 'April', 'Mai', 'Juni', 'Juli', 'Aug', 'Sept', 'Okt', 'Nov', 'Dez'),
-            'months_long'   => array ('Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember')
+            'months_short'  => array ('Jan', 'Feb', 'Mï¿½rz', 'April', 'Mai', 'Juni', 'Juli', 'Aug', 'Sept', 'Okt', 'Nov', 'Dez'),
+            'months_long'   => array ('Januar', 'Februar', 'Mï¿½rz', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember')
         ),
         'fr'    => array (
             'weekdays_short'=> array ('Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'),
@@ -112,15 +112,15 @@ class HTML_QuickForm_date extends HTML_QuickForm_group
         ),
         'hu'    => array (
             'weekdays_short'=> array ('V', 'H', 'K', 'Sze', 'Cs', 'P', 'Szo'),
-            'weekdays_long' => array ('vasárnap', 'hétfõ', 'kedd', 'szerda', 'csütörtök', 'péntek', 'szombat'),
-            'months_short'  => array ('jan', 'feb', 'márc', 'ápr', 'máj', 'jún', 'júl', 'aug', 'szept', 'okt', 'nov', 'dec'),
-            'months_long'   => array ('január', 'február', 'március', 'április', 'május', 'június', 'július', 'augusztus', 'szeptember', 'október', 'november', 'december')
+            'weekdays_long' => array ('vasï¿½rnap', 'hï¿½tfï¿½', 'kedd', 'szerda', 'csï¿½tï¿½rtï¿½k', 'pï¿½ntek', 'szombat'),
+            'months_short'  => array ('jan', 'feb', 'mï¿½rc', 'ï¿½pr', 'mï¿½j', 'jï¿½n', 'jï¿½l', 'aug', 'szept', 'okt', 'nov', 'dec'),
+            'months_long'   => array ('januï¿½r', 'februï¿½r', 'mï¿½rcius', 'ï¿½prilis', 'mï¿½jus', 'jï¿½nius', 'jï¿½lius', 'augusztus', 'szeptember', 'oktï¿½ber', 'november', 'december')
         ),
         'pl'    => array (
-            'weekdays_short'=> array ('Nie', 'Pn', 'Wt', '¦r', 'Czw', 'Pt', 'Sob'),
-            'weekdays_long' => array ('Niedziela', 'Poniedzia³ek', 'Wtorek', '¦roda', 'Czwartek', 'Pi±tek', 'Sobota'),
-            'months_short'  => array ('Sty', 'Lut', 'Mar', 'Kwi', 'Maj', 'Cze', 'Lip', 'Sie', 'Wrz', 'Pa¼', 'Lis', 'Gru'),
-            'months_long'   => array ('Styczeñ', 'Luty', 'Marzec', 'Kwiecieñ', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpieñ', 'Wrzesieñ', 'Pa¼dziernik', 'Listopad', 'Grudzieñ')
+            'weekdays_short'=> array ('Nie', 'Pn', 'Wt', 'ï¿½r', 'Czw', 'Pt', 'Sob'),
+            'weekdays_long' => array ('Niedziela', 'Poniedziaï¿½ek', 'Wtorek', 'ï¿½roda', 'Czwartek', 'Piï¿½tek', 'Sobota'),
+            'months_short'  => array ('Sty', 'Lut', 'Mar', 'Kwi', 'Maj', 'Cze', 'Lip', 'Sie', 'Wrz', 'Paï¿½', 'Lis', 'Gru'),
+            'months_long'   => array ('Styczeï¿½', 'Luty', 'Marzec', 'Kwiecieï¿½', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpieï¿½', 'Wrzesieï¿½', 'Paï¿½dziernik', 'Listopad', 'Grudzieï¿½')
         ),
         'sl'    => array (
             'weekdays_short'=> array ('Ned', 'Pon', 'Tor', 'Sre', 'Cet', 'Pet', 'Sob'),
@@ -129,52 +129,52 @@ class HTML_QuickForm_date extends HTML_QuickForm_group
             'months_long'   => array ('Januar', 'Februar', 'Marec', 'April', 'Maj', 'Junij', 'Julij', 'Avgust', 'September', 'Oktober', 'November', 'December')
         ),
         'ru'    => array (
-            'weekdays_short'=> array ('Âñ', 'Ïí', 'Âò', 'Ñð', '×ò', 'Ïò', 'Ñá'),
-            'weekdays_long' => array ('Âîñêðåñåíüå', 'Ïîíåäåëüíèê', 'Âòîðíèê', 'Ñðåäà', '×åòâåðã', 'Ïÿòíèöà', 'Ñóááîòà'),
-            'months_short'  => array ('ßíâ', 'Ôåâ', 'Ìàð', 'Àïð', 'Ìàé', 'Èþí', 'Èþë', 'Àâã', 'Ñåí', 'Îêò', 'Íîÿ', 'Äåê'),
-            'months_long'   => array ('ßíâàðü', 'Ôåâðàëü', 'Ìàðò', 'Àïðåëü', 'Ìàé', 'Èþíü', 'Èþëü', 'Àâãóñò', 'Ñåíòÿáðü', 'Îêòÿáðü', 'Íîÿáðü', 'Äåêàáðü')
+            'weekdays_short'=> array ('ï¿½ï¿½', 'ï¿½ï¿½', 'ï¿½ï¿½', 'ï¿½ï¿½', 'ï¿½ï¿½', 'ï¿½ï¿½', 'ï¿½ï¿½'),
+            'weekdays_long' => array ('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½'),
+            'months_short'  => array ('ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½'),
+            'months_long'   => array ('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½')
         ),
         'es'    => array (
-            'weekdays_short'=> array ('Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'),
-            'weekdays_long' => array ('Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'),
+            'weekdays_short'=> array ('Dom', 'Lun', 'Mar', 'Miï¿½', 'Jue', 'Vie', 'Sï¿½b'),
+            'weekdays_long' => array ('Domingo', 'Lunes', 'Martes', 'Miï¿½rcoles', 'Jueves', 'Viernes', 'Sï¿½bado'),
             'months_short'  => array ('Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'),
             'months_long'   => array ('Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septimbre', 'Octubre', 'Noviembre', 'Diciembre')
         ),
         'da'    => array (
-            'weekdays_short'=> array ('Søn', 'Man', 'Tir', 'Ons', 'Tor', 'Fre', 'Lør'),
-            'weekdays_long' => array ('Søndag', 'Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag'),
+            'weekdays_short'=> array ('Sï¿½n', 'Man', 'Tir', 'Ons', 'Tor', 'Fre', 'Lï¿½r'),
+            'weekdays_long' => array ('Sï¿½ndag', 'Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lï¿½rdag'),
             'months_short'  => array ('Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'),
             'months_long'   => array ('Januar', 'Februar', 'Marts', 'April', 'Maj', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'December')
         ),
         'is'    => array (
-            'weekdays_short'=> array ('Sun', 'Mán', 'Þri', 'Mið', 'Fim', 'Fös', 'Lau'),
-            'weekdays_long' => array ('Sunnudagur', 'Mánudagur', 'Þriðjudagur', 'Miðvikudagur', 'Fimmtudagur', 'Föstudagur', 'Laugardagur'),
-            'months_short'  => array ('Jan', 'Feb', 'Mar', 'Apr', 'Maí', 'Jún', 'Júl', 'Ágú', 'Sep', 'Okt', 'Nóv', 'Des'),
-            'months_long'   => array ('Janúar', 'Febrúar', 'Mars', 'Apríl', 'Maí', 'Júní', 'Júlí', 'Ágúst', 'September', 'Október', 'Nóvember', 'Desember')
+            'weekdays_short'=> array ('Sun', 'Mï¿½n', 'ï¿½ri', 'Miï¿½', 'Fim', 'Fï¿½s', 'Lau'),
+            'weekdays_long' => array ('Sunnudagur', 'Mï¿½nudagur', 'ï¿½riï¿½judagur', 'Miï¿½vikudagur', 'Fimmtudagur', 'Fï¿½studagur', 'Laugardagur'),
+            'months_short'  => array ('Jan', 'Feb', 'Mar', 'Apr', 'Maï¿½', 'Jï¿½n', 'Jï¿½l', 'ï¿½gï¿½', 'Sep', 'Okt', 'Nï¿½v', 'Des'),
+            'months_long'   => array ('Janï¿½ar', 'Febrï¿½ar', 'Mars', 'Aprï¿½l', 'Maï¿½', 'Jï¿½nï¿½', 'Jï¿½lï¿½', 'ï¿½gï¿½st', 'September', 'Oktï¿½ber', 'Nï¿½vember', 'Desember')
         ),
         'it'    => array (
             'weekdays_short'=> array ('Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'),
-            'weekdays_long' => array ('Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'),
+            'weekdays_long' => array ('Domenica', 'Lunedï¿½', 'Martedï¿½', 'Mercoledï¿½', 'Giovedï¿½', 'Venerdï¿½', 'Sabato'),
             'months_short'  => array ('Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'),
             'months_long'   => array ('Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre')
         ),
         'sk'    => array (
-            'weekdays_short'=> array ('Ned', 'Pon', 'Uto', 'Str', 'Štv', 'Pia', 'Sob'),
-            'weekdays_long' => array ('Nede¾a', 'Pondelok', 'Utorok', 'Streda', 'Štvrtok', 'Piatok', 'Sobota'),
-            'months_short'  => array ('Jan', 'Feb', 'Mar', 'Apr', 'Máj', 'Jún', 'Júl', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'),
-            'months_long'   => array ('Január', 'Február', 'Marec', 'Apríl', 'Máj', 'Jún', 'Júl', 'August', 'September', 'Október', 'November', 'December')
+            'weekdays_short'=> array ('Ned', 'Pon', 'Uto', 'Str', 'ï¿½tv', 'Pia', 'Sob'),
+            'weekdays_long' => array ('Nedeï¿½a', 'Pondelok', 'Utorok', 'Streda', 'ï¿½tvrtok', 'Piatok', 'Sobota'),
+            'months_short'  => array ('Jan', 'Feb', 'Mar', 'Apr', 'Mï¿½j', 'Jï¿½n', 'Jï¿½l', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'),
+            'months_long'   => array ('Januï¿½r', 'Februï¿½r', 'Marec', 'Aprï¿½l', 'Mï¿½j', 'Jï¿½n', 'Jï¿½l', 'August', 'September', 'Oktï¿½ber', 'November', 'December')
         ),
         'cs'    => array (
-            'weekdays_short'=> array ('Ne', 'Po', 'Út', 'St', 'Èt', 'Pá', 'So'),
-            'weekdays_long' => array ('Nedìle', 'Pondìlí', 'Úterý', 'Støeda', 'Ètvrtek', 'Pátek', 'Sobota'),
-            'months_short'  => array ('Led', 'Úno', 'Bøe', 'Dub', 'Kvì', 'Èen', 'Èec', 'Srp', 'Záø', 'Øíj', 'Lis', 'Pro'),
-            'months_long'   => array ('Leden', 'Únor', 'Bøezen', 'Duben', 'Kvìten', 'Èerven', 'Èervenec', 'Srpen', 'Záøí', 'Øíjen', 'Listopad', 'Prosinec')
+            'weekdays_short'=> array ('Ne', 'Po', 'ï¿½t', 'St', 'ï¿½t', 'Pï¿½', 'So'),
+            'weekdays_long' => array ('Nedï¿½le', 'Pondï¿½lï¿½', 'ï¿½terï¿½', 'Stï¿½eda', 'ï¿½tvrtek', 'Pï¿½tek', 'Sobota'),
+            'months_short'  => array ('Led', 'ï¿½no', 'Bï¿½e', 'Dub', 'Kvï¿½', 'ï¿½en', 'ï¿½ec', 'Srp', 'Zï¿½ï¿½', 'ï¿½ï¿½j', 'Lis', 'Pro'),
+            'months_long'   => array ('Leden', 'ï¿½nor', 'Bï¿½ezen', 'Duben', 'Kvï¿½ten', 'ï¿½erven', 'ï¿½ervenec', 'Srpen', 'Zï¿½ï¿½ï¿½', 'ï¿½ï¿½jen', 'Listopad', 'Prosinec')
         ),
         'hy'    => array(
-            'weekdays_short'=> array ('ÎñÏ','ºñÏ','ºñù','âñù','ÐÝ·','àõñ','ÞµÃ'),
-            'weekdays_long' => array ('ÎÇñ³ÏÇ','ºñÏáõß³µÃÇ','ºñ»ùß³µÃÇ','âáñ»ùß³µÃÇ', 'ÐÇÝ·ß³µÃÇ', 'àõñµ³Ã', 'Þ³µ³Ã'),
-            'months_short'  => array ('ÐÝí','öïñ','Øñï','²åñ','ØÛë','ÐÝë','ÐÉë','ú·ë','êåï','ÐÏï','ÜÛÙ','¸Ïï'),
-            'months_long'   => array ('ÐáõÝí³ñ','ö»ïñí³ñ','Ø³ñï','²åñÇÉ','Ø³ÛÇë','ÐáõÝÇë','ÐáõÉÇë','ú·áëïáë','ê»åï»Ùµ»ñ','ÐáÏï»Ùµ»ñ','ÜáÛ»Ùµ»ñ','¸»Ïï»Ùµ»ñ')
+            'weekdays_short'=> array ('ï¿½ï¿½ï¿½','ï¿½ï¿½ï¿½','ï¿½ï¿½ï¿½','ï¿½ï¿½ï¿½','ï¿½Ý·','ï¿½ï¿½ï¿½','Þµï¿½'),
+            'weekdays_long' => array ('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½','ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½ï¿½ï¿½','ï¿½ï¿½ï¿½ï¿½ß³ï¿½ï¿½ï¿½','ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½ï¿½ï¿½', 'ï¿½ï¿½Ý·ß³ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 'Þ³ï¿½ï¿½ï¿½'),
+            'months_short'  => array ('ï¿½ï¿½ï¿½','ï¿½ï¿½ï¿½','ï¿½ï¿½ï¿½','ï¿½ï¿½ï¿½','ï¿½ï¿½ï¿½','ï¿½ï¿½ï¿½','ï¿½ï¿½ï¿½','ï¿½ï¿½ï¿½','ï¿½ï¿½ï¿½','ï¿½ï¿½ï¿½','ï¿½ï¿½ï¿½','ï¿½ï¿½ï¿½'),
+            'months_long'   => array ('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½','ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½','Ø³ï¿½ï¿½','ï¿½ï¿½ï¿½ï¿½ï¿½','Ø³ï¿½ï¿½ï¿½','ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½','ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½','ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½','ï¿½ï¿½ï¿½ï¿½ï¿½Ùµï¿½ï¿½','ï¿½ï¿½ï¿½ï¿½ï¿½Ùµï¿½ï¿½','ï¿½ï¿½Û»Ùµï¿½ï¿½','ï¿½ï¿½ï¿½ï¿½ï¿½Ùµï¿½ï¿½')
         ),
         'nl'    => array (
             'weekdays_short'=> array ('Zo', 'Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za'),
@@ -225,7 +225,7 @@ class HTML_QuickForm_date extends HTML_QuickForm_group
     {
         $this->_separator = $this->_elements = array();
         $separator =  '';
-        $locale    =& $this->_locale[$this->_options['language']];
+        $locale    = $this->_locale[$this->_options['language']];
         $backslash =  false;
         for ($i = 0, $length = strlen($this->_options['format']); $i < $length; $i++) {
             $sign = $this->_options['format']{$i};
