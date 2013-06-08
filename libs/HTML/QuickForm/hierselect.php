@@ -116,7 +116,7 @@ class HTML_QuickForm_hierselect extends HTML_QuickForm_group
         if (empty($this->_elements)) {
             $this->_createElements();
         }
-        $select1 =& $this->_elements[0];
+        $select1 = $this->_elements[0];
         $select1->loadArray($options);
     } // end func setMainOptions
 
@@ -153,7 +153,7 @@ class HTML_QuickForm_hierselect extends HTML_QuickForm_group
         }
         foreach ($options as $key => $array) {
             if ($key == $curKey) {
-                $select2 =& $this->_elements[1];
+                $select2 = $this->_elements[1];
                 $select2->loadArray($array);    
             }
             $varName = $this->getName()."_".$key;
@@ -191,7 +191,7 @@ class HTML_QuickForm_hierselect extends HTML_QuickForm_group
             } else {
                 $curKey = key($this->_secOptions);
             }
-            $select2 =& $this->_elements[1];
+            $select2 = $this->_elements[1];
             $select2->_options = array(); // Bad, private...
             $select2->loadArray($this->_secOptions[$curKey]);
         }
@@ -208,8 +208,8 @@ class HTML_QuickForm_hierselect extends HTML_QuickForm_group
      */
     function _createElements()
     {
-        $this->_elements[] =& new HTML_QuickForm_select('0', null, array(), $this->getAttributes());
-        $this->_elements[] =& new HTML_QuickForm_select('1', null, array(), $this->getAttributes());
+        $this->_elements[] = new HTML_QuickForm_select('0', null, array(), $this->getAttributes());
+        $this->_elements[] = new HTML_QuickForm_select('1', null, array(), $this->getAttributes());
     } // end func _createElements
 
     // }}}
@@ -241,7 +241,7 @@ class HTML_QuickForm_hierselect extends HTML_QuickForm_group
             $this->_js .= "</script>\n";
         }
         include_once('HTML/QuickForm/Renderer/Default.php');
-        $renderer =& new HTML_QuickForm_Renderer_Default();
+        $renderer = new HTML_QuickForm_Renderer_Default();
         $renderer->setElementTemplate('{element}');
         parent::accept($renderer);
         return $this->_js.$renderer->toHtml();
