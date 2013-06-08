@@ -249,7 +249,7 @@ class HTML_QuickForm extends HTML_Common {
             } else {
                 $this->_submitValues = 'get' == $method? $_GET: $_POST;
             }
-            $this->_submitFiles =& $_FILES;
+            $this->_submitFiles = $_FILES;
         }
         if ($trackSubmit) {
             unset($this->_submitValues['_qf__' . $formName]);
@@ -307,7 +307,7 @@ class HTML_QuickForm extends HTML_Common {
     function registerRule($ruleName, $type, $data1, $data2 = null)
     {
         include_once('HTML/QuickForm/RuleRegistry.php');
-        $registry =& HTML_QuickForm_RuleRegistry::singleton();
+        $registry = HTML_QuickForm_RuleRegistry::singleton();
         $registry->registerRule($ruleName, $type, $data1, $data2);
     } // end func registerRule
 
@@ -422,7 +422,7 @@ class HTML_QuickForm extends HTML_Common {
         if (!$this->elementExists('MAX_FILE_SIZE')) {
             $this->addElement('hidden', 'MAX_FILE_SIZE', $this->_maxFileSize);
         } else {
-            $el =& $this->getElement('MAX_FILE_SIZE');
+            $el = $this->getElement('MAX_FILE_SIZE');
             $el->updateAttributes(array('value' => $this->_maxFileSize));
         }
     } // end func setMaxFileSize
@@ -486,7 +486,7 @@ class HTML_QuickForm extends HTML_Common {
         $className = $GLOBALS['HTML_QUICKFORM_ELEMENT_TYPES'][$type][1];
         $includeFile = $GLOBALS['HTML_QUICKFORM_ELEMENT_TYPES'][$type][0];
         include_once($includeFile);
-        $elementObject =& new $className();
+        $elementObject = new $className();
         for ($i = 0; $i < 5; $i++) {
             if (!isset($args[$i])) {
                 $args[$i] = null;
@@ -522,7 +522,7 @@ class HTML_QuickForm extends HTML_Common {
            $elementObject->onQuickFormEvent('updateValue', null, $this);
         } else {
             $args = func_get_args();
-            $elementObject =& $this->_loadElement('addElement', $element, array_slice($args, 1));
+            $elementObject = $this->_loadElement('addElement', $element, array_slice($args, 1));
             if (PEAR::isError($elementObject)) {
                 return $elementObject;
             }
@@ -533,13 +533,13 @@ class HTML_QuickForm extends HTML_Common {
         if (!empty($elementName) && isset($this->_elementIndex[$elementName])) {
             if ($this->_elements[$this->_elementIndex[$elementName]]->getType() ==
                 $elementObject->getType()) {
-                $this->_elements[] =& $elementObject;
+                $this->_elements[] = $elementObject;
                 $this->_duplicateIndex[$elementName][] = end(array_keys($this->_elements));
             } else {
                 return PEAR::raiseError(null, QUICKFORM_INVALID_ELEMENT_NAME, null, E_USER_WARNING, "Element '$elementName' already exists in HTML_QuickForm::addElement()", 'HTML_QuickForm_Error', true);
             }
         } else {
-            $this->_elements[] =& $elementObject;
+            $this->_elements[] = $elementObject;
             $ccwakka_keys=array_keys($this->_elements);  // for PHP5, thx LazyWalkz
             $this->_elementIndex[$elementName] = end($ccwakka_keys);
         }
@@ -656,8 +656,8 @@ class HTML_QuickForm extends HTML_Common {
             return $this->getElementValue($elementName);
 
         } elseif ('group' == $this->getElementType($elementName)) {
-            $group    =& $this->getElement($elementName);
-            $elements =& $group->getElements();
+            $group    = $this->getElement($elementName);
+            $elements = $group->getElements();
             foreach (array_keys($elements) as $key) {
                 $name = $group->getElementName($key);
                 if ($name != $elementName) {
@@ -911,7 +911,7 @@ class HTML_QuickForm extends HTML_Common {
             return PEAR::raiseError(null, QUICKFORM_NONEXIST_ELEMENT, null, E_USER_WARNING, "Group '$group' does not exist in HTML_QuickForm::addGroupRule()", 'HTML_QuickForm_Error', true);
         }
 
-        $groupObj =& $this->getElement($group);
+        $groupObj = $this->getElement($group);
         if (is_array($arg1)) {
             $required = 0;
             foreach ($arg1 as $elementIndex => $rules) {
@@ -1124,7 +1124,7 @@ class HTML_QuickForm extends HTML_Common {
             } while ($parent = get_parent_class($parent));
         }
         if ($ruleName) {
-            $registry =& HTML_QuickForm_RuleRegistry::singleton();
+            $registry = HTML_QuickForm_RuleRegistry::singleton();
             $registry->registerRule($ruleName, null, $name);
         }
         return $ruleName;
@@ -1248,7 +1248,7 @@ class HTML_QuickForm extends HTML_Common {
         }
 
         include_once('HTML/QuickForm/RuleRegistry.php');
-        $registry =& HTML_QuickForm_RuleRegistry::singleton();
+        $registry = HTML_QuickForm_RuleRegistry::singleton();
 
         foreach ($this->_rules as $target => $rules) {
             $submitValue = $this->getSubmitValue($target);
@@ -1388,7 +1388,7 @@ class HTML_QuickForm extends HTML_Common {
     {
         $renderer->startForm($this);
         foreach (array_keys($this->_elements) as $key) {
-            $element =& $this->_elements[$key];
+            $element = $this->_elements[$key];
             if ($this->_freezeAll) {
                 $element->freeze();
             }
@@ -1414,7 +1414,7 @@ class HTML_QuickForm extends HTML_Common {
     {
         if (!isset($GLOBALS['_HTML_QuickForm_default_renderer'])) {
             include_once('HTML/QuickForm/Renderer/Default.php');
-            $GLOBALS['_HTML_QuickForm_default_renderer'] =& new HTML_QuickForm_Renderer_Default();
+            $GLOBALS['_HTML_QuickForm_default_renderer'] = new HTML_QuickForm_Renderer_Default();
         }
         return $GLOBALS['_HTML_QuickForm_default_renderer'];
     } // end func defaultRenderer
@@ -1437,7 +1437,7 @@ class HTML_QuickForm extends HTML_Common {
         if (!is_null($in_data)) {
             $this->addElement('html', $in_data);
         }
-        $renderer =& $this->defaultRenderer();
+        $renderer = $this->defaultRenderer();
         $this->accept($renderer);
         return $renderer->toHtml();
     } // end func toHtml
@@ -1459,7 +1459,7 @@ class HTML_QuickForm extends HTML_Common {
         }
 
         include_once('HTML/QuickForm/RuleRegistry.php');
-        $registry =& HTML_QuickForm_RuleRegistry::singleton();
+        $registry = HTML_QuickForm_RuleRegistry::singleton();
         $test = array();
         $js_escape = array(
             "\r"    => '\r',
@@ -1477,22 +1477,22 @@ class HTML_QuickForm extends HTML_Common {
                     $rule['message'] = strtr($rule['message'], $js_escape);
 
                     if (isset($rule['group'])) {
-                        $group    =& $this->getElement($rule['group']);
-                        $elements =& $group->getElements();
+                        $group    = $this->getElement($rule['group']);
+                        $elements = $group->getElements();
                         foreach (array_keys($elements) as $key) {
                             if ($elementName == $group->getElementName($key)) {
-                                $element =& $elements[$key];
+                                $element = $elements[$key];
                                 break;
                             }
                         }
                     } elseif ($dependent) {
                         $element   =  array();
-                        $element[] =& $this->getElement($elementName);
+                        $element[] = $this->getElement($elementName);
                         foreach ($rule['dependent'] as $idx => $elName) {
-                            $element[] =& $this->getElement($elName);
+                            $element[] = $this->getElement($elName);
                         }
                     } else {
-                        $element =& $this->getElement($elementName);
+                        $element = $this->getElement($elementName);
                     }
 
                     $test[] = $registry->getValidationScript($element, $elementName, $rule);
@@ -1555,7 +1555,7 @@ class HTML_QuickForm extends HTML_Common {
     function toArray()
     {
         include_once 'HTML/QuickForm/Renderer/Array.php';
-        $renderer =& new HTML_QuickForm_Renderer_Array();
+        $renderer = new HTML_QuickForm_Renderer_Array();
         $this->accept($renderer);
         return $renderer->toArray();
      } // end func toArray
