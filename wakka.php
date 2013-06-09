@@ -12,6 +12,7 @@
     // $Id: wakka.php,v 1.10 2005/12/23 04:33:53 cooyeah Exp $
      
     require("./libs/clswakka.php");
+    require("./safeEncoding.php");
     define("WAKKA_VERSION", "0.1.2");
     define("COO_VERSION", "0.0.9rc3");
     define("COO_CVS_TAG", '$Id: wakka.php,v 1.10 2005/12/23 04:33:53 cooyeah Exp $');
@@ -256,7 +257,7 @@
     $wakka = new Wakka($wakkaConfig);
      
     // go!
-    $wakka->Run($page, $method);
+    $wakka->Run(safeEncoding($page), $method);
     // print_r($_SERVER);
     ini_set("include_path", $include_path); //Restore the settings;
 ?>
