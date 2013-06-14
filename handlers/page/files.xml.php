@@ -55,8 +55,8 @@ else
 if ($this->config['upload_path'] == '')
   $this->config['upload_path'] = 'files';
 $upload_path = $this->config['upload_path'].'/'.$this->GetPageTag();
-if (! is_dir($upload_path))
-  mkdir_r($upload_path);
+if (! is_dir(iconv($this->config["charset"], "GBK",$upload_path)))
+  mkdir_r(iconv($this->config["charset"], "GBK",$upload_path));
 
 // do the action
 switch ($_REQUEST['action'])
@@ -67,31 +67,43 @@ switch ($_REQUEST['action'])
       {
         $path = "{$upload_path}/{$_REQUEST['file']}";
         $filename = basename($path);
-       	if(filesize($path)<1024*1024){
-        header('MIME-Version: 1.0');
-	$afn = preg_split("/\./",$filename);
-        $ext =  strtolower($afn[count($afn)-1]);
-        $mime_type = $mime_types[$ext];
-        if ($mime_type == '')
-          $mime_type = 'application/octet-stream';
-        header("Content-Type: {$mime_type}; name=\"{$filename}\"");
-        header('Content-Length: '. filesize($path));
-        header("Content-Disposition: filename=\"{$filename}\"");
-        $fp=fopen($path,'r');
-        print fread($fp,filesize($path));
-        fclose($fp);
-        exit();
-	}
-	else
-	{
-	header("location:".$this->tinyHref($this->config['upload_path']."/".$this->GetPageTag()."/".$filename));
-	exit();
-	}
+        $filesize_lc = filesize(iconv($this->config["charset"], "GBK",$path));
+       	if($filesize_lc <= $this->config["AllowUploadMaxFileSize"]){
+            header('MIME-Version: 1.0');
+    	    $afn = preg_split("/\./",$filename);
+            $ext =  strtolower($afn[count($afn)-1]);
+            $mime_type = $mime_types[$ext];
+            if ($mime_type == '')
+              $mime_type = 'application/octet-stream';
+            //$filename_utf8 = iconv("GBK", $this->config["charset"], $filename);
+            $filename_utf8 = rawurlencode($filename);
+            header("Content-Type: {$mime_type}; name=\"{$filename_utf8}\"");
+            header('Content-Length: '. $filesize_lc);
+/* http://blog.robotshell.org/2012/deal-with-http-header-encoding-for-file-download/
+正确处理下载文件时HTTP头的编码问题（Content-Disposition）
+
+Content-Disposition: attachment;
+                     filename="encoded_text";
+                     filename*=utf-8''encoded_text
+
+若有attachment则肯定是给出下载提示框。若没有的，对于图片等文件浏览器直接打开
+*/
+            header("Content-Disposition: filename=\"{$filename_utf8}\"; filename*=utf-8''{$filename_utf8}");
+            $fp=fopen(iconv($this->config["charset"], "GBK",$path),'r');
+            print fread($fp,filesize(iconv($this->config["charset"], "GBK",$path)));
+            fclose($fp);
+            exit();
+    	}
+    	else
+    	{
+        	header("location:".$this->tinyHref($this->config['upload_path']."/".$this->GetPageTag()."/".$filename));
+        	exit();
+    	}
       }
   case 'delete':
     if ($this->HasAccess('write'))
       {
-        @unlink("{$upload_path}/{$_REQUEST['file']}");
+        @unlink(iconv($this->config["charset"], "GBK","{$upload_path}/{$_REQUEST['file']}"));
 	$this->LogOperation("_OP_FILE_REMOVE",$this->GetPageTag(),$_REQUEST['file']);
         print $this->redirect($this->href());
       }
