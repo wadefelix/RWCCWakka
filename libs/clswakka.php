@@ -649,17 +649,17 @@
 	$files=array();
 	if(!$tag)$tag=$this->GetPageTag();
 	$dirpath=$this->GetPageUploadDir($tag);
-	if(!is_dir($dirpath))return false;
-	if ($handle = opendir($dirpath)) 
+	if(!is_dir(iconv($this->config["charset"], "GBK",$dirpath)))return false;
+	if ($handle = opendir(iconv($this->config["charset"], "GBK",$dirpath))) 
 	{
-	while (false !== ($file = readdir($handle))) 
-	if ($file != "." && $file != ".." && !is_dir($file)){
-	$filesArr[]=array(
-	'name' => trim($file),
-	'url' => $this->href('files.xml', $tag, 'action=download&file='.urlencode(trim($file)))
-	);
-	}
-	closedir($handle);
+    	while (false !== ($file = readdir($handle))) 
+        	if ($file != "." && $file != ".." && !is_dir(iconv($this->config["charset"], "GBK",$file))){
+            	$filesArr[]=array(
+                	'name' => iconv("GBK",$this->config["charset"],trim($file)),
+                	'url' => $this->href('files.xml', $tag, 'action=download&file='.urlencode(iconv("GBK",$this->config["charset"],trim($file))))
+            	   );
+        	}
+    	closedir($handle);
 	}  
 	return $filesArr;
 	}
@@ -676,7 +676,7 @@
 	function GetPageUploadDir($tag="",$exist=true){
 	if(!$tag)$tag=$this->GetPageTag();
 	$upload_path = $this->config['upload_path'].'/'.$tag;
-	if(is_dir($upload_path) || !$exist)return $upload_path;
+	if(is_dir(iconv($this->config["charset"], "GBK",$upload_path)) || !$exist)return $upload_path;
 	else
 	return false;
 	}
