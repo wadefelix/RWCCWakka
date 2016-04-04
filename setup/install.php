@@ -46,7 +46,7 @@ case "0":
   			"KEY idx_time (time),".
   			"KEY idx_latest (latest),".
   			"KEY idx_comment_on (comment_on)".
-			") TYPE=MyISAM;", $dblink), "Already exists?", 0);
+			") ENGINE=MyISAM;", $dblink), "Already exists?", 0);
 	test("Creating ACL table...",
 		@mysql_query(
 			"CREATE TABLE ".$config["table_prefix"]."acls (".
@@ -54,7 +54,7 @@ case "0":
 			"privilege varchar(20) NOT NULL default '',".
   			"list text NOT NULL,".
  			"PRIMARY KEY  (page_tag,privilege)".
-			") TYPE=MyISAM", $dblink), "Already exists?", 0);
+			") ENGINE=MyISAM", $dblink), "Already exists?", 0);
 	test("Creating link tracking table...",
 		@mysql_query(
 			"CREATE TABLE ".$config["table_prefix"]."links (".
@@ -63,7 +63,7 @@ case "0":
   			"UNIQUE KEY from_tag (from_tag,to_tag),".
   			"KEY idx_from (from_tag),".
   			"KEY idx_to (to_tag)".
-			") TYPE=MyISAM", $dblink), "Already exists?", 0);
+			") ENGINE=MyISAM", $dblink), "Already exists?", 0);
 	test("Creating referrer table...",
 		@mysql_query(
 			"CREATE TABLE ".$config["table_prefix"]."referrers (".
@@ -72,7 +72,7 @@ case "0":
   			"time datetime NOT NULL default '0000-00-00 00:00:00',".
   			"KEY idx_page_tag (page_tag),".
   			"KEY idx_time (time)".
-			") TYPE=MyISAM", $dblink), "Already exists?", 0);
+			") ENGINE=MyISAM", $dblink), "Already exists?", 0);
 	test("Creating user table...",
 		@mysql_query(
 			"CREATE TABLE ".$config["table_prefix"]."users (".
@@ -88,7 +88,7 @@ case "0":
   			"PRIMARY KEY  (name),".
   			"KEY idx_name (name),".
   			"KEY idx_signuptime (signuptime)".
-			") TYPE=MyISAM", $dblink), "Already exists?", 0);
+			") ENGINE=MyISAM", $dblink), "Already exists?", 0);
 	if($pageok){
 	mysql_query("insert into ".$config["table_prefix"]."pages set tag = '".$config["root_page"]."', body = '".mysql_escape_string("Welcome to your [[CooCooWakka:CooCooWakka CooCooWakka]] site! Click on the \"Edit this page\" link at the bottom to get started.\n\nAlso don't forget to visit [[CooCooWakka:HomePage]]!\n\nUseful pages: OrphanedPages, WantedPages, TextSearch, UploadFile, CategoryCategory.")."', user = 'WakkaInstaller', time = now(), latest = 'Y' , isnew='Y'", $dblink);
 	mysql_query("insert into ".$config["table_prefix"]."pages set tag = 'RecentChanges', body = '{{RecentChanges}}', user = 'WakkaInstaller', time = now(), latest = 'Y', isnew='Y'", $dblink);
