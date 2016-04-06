@@ -117,7 +117,14 @@
         "time_stamp_format" => "D F j, Y, g:i a",
         "max_trace" => 10,
         "no_referrer" => 0,
-        "open_register" => 1,
+        "open_register" => 0,
+        "login_method" => "basic", // basic OR ldap
+        "ldap_server" => "ldap://localhost",
+        "ldap_organization" => "",
+        "ldap_root_dn" => "dc=example,dc=com",
+        "ldap_uid_field" => "uid",
+        "ldap_bind_dn" => "cn=admin,dc=example,dc=com",
+        "ldap_bind_pswd" => "admin",
         "freeze" => 0 );
      
      
