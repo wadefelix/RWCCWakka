@@ -27,14 +27,14 @@ function installpage($tag,$body,$prefix,$dblink){
 //0:error
 //1:ok
 //3:already exist
-$result=mysql_query("select tag from ".$prefix."pages where tag='".mysql_escape_string($tag)."' and latest='Y'",$dblink);
-$r = mysql_fetch_array($result);
+$result=mysqli_query($dblink,"select tag from ".$prefix."pages where tag='".mysqli_escape_string($dblink,$tag)."' and latest='Y'");
+$r = mysqli_fetch_array($result);
 if($r){
 	return 3;
 }
 else
 {
-	$result=mysql_query("insert into ".$prefix."pages set tag = '".mysql_escape_string($tag)."', body = '".mysql_escape_string($body)."', user = 'WakkaInstaller', time = now(), latest = 'Y', isnew='Y'", $dblink);
+	$result=mysqli_query($dblink,"insert into ".$prefix."pages set tag = '".mysqli_escape_string($dblink,$tag)."', body = '".mysqli_escape_string($dblink,$body)."', user = 'WakkaInstaller', time = now(), latest = 'Y', isnew='Y'");
 	return $result;
 //}
 }

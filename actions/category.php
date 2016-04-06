@@ -11,9 +11,9 @@ if(!isset($tokens)) // Mod not installed => no tokens...
 $sql = "select tag, time, owner from " .
        $this->config["table_prefix"] .
        "pages where latest = 'Y' and tag <> '" .
-       mysql_escape_string($this->GetPageTag()) .
+       mysqli_real_escape_string($this->dblink,$this->GetPageTag()) .
        "' and Category = '" .
-       mysql_escape_string($this->GetPageTag()) .
+       mysqli_real_escape_string($this->dblink,$this->GetPageTag()) .
        "' order by tag";
 
 if($categories = $this->LoadAll($sql))
