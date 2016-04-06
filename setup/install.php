@@ -90,7 +90,7 @@ case "0":
   			"KEY idx_signuptime (signuptime)".
 			") ENGINE=MyISAM", $dblink), "Already exists?", 0);
 	if($pageok){
-	mysql_query("insert into ".$config["table_prefix"]."pages set tag = '".$config["root_page"]."', body = '".mysql_escape_string("Welcome to your [[CooCooWakka:CooCooWakka CooCooWakka]] site! Click on the \"Edit this page\" link at the bottom to get started.\n\nAlso don't forget to visit [[CooCooWakka:HomePage]]!\n\nUseful pages: OrphanedPages, WantedPages, TextSearch, UploadFile, CategoryCategory.")."', user = 'WakkaInstaller', time = now(), latest = 'Y' , isnew='Y'", $dblink);
+	mysql_query("insert into ".$config["table_prefix"]."pages set tag = '".$config["root_page"]."', body = '".mysql_real_escape_string("Welcome to your [[CooCooWakka:CooCooWakka CooCooWakka]] site! Click on the \"Edit this page\" link at the bottom to get started.\n\nAlso don't forget to visit [[CooCooWakka:HomePage]]!\n\nUseful pages: OrphanedPages, WantedPages, TextSearch, UploadFile, CategoryCategory.")."', user = 'WakkaInstaller', time = now(), latest = 'Y' , isnew='Y'", $dblink);
 	mysql_query("insert into ".$config["table_prefix"]."pages set tag = 'RecentChanges', body = '{{RecentChanges}}', user = 'WakkaInstaller', time = now(), latest = 'Y', isnew='Y'", $dblink);
 	mysql_query("insert into ".$config["table_prefix"]."pages set tag = 'RecentlyCommented', body = '{{RecentlyCommented}}', user = 'WakkaInstaller', time = now(), latest = 'Y', isnew='Y'", $dblink);
 	mysql_query("insert into ".$config["table_prefix"]."pages set tag = 'UserSettings', body = '{{UserSettings}}', user = 'WakkaInstaller', time = now(), latest = 'Y', isnew='Y'", $dblink);
@@ -101,10 +101,10 @@ case "0":
 	mysql_query("insert into ".$config["table_prefix"]."pages set tag = 'MyPages', body = '{{MyPages}}', user = 'WakkaInstaller', time = now(), latest = 'Y',isnew='Y'", $dblink);
 	mysql_query("insert into ".$config["table_prefix"]."pages set tag = 'MyChanges', body = '{{MyChanges}}', user = 'WakkaInstaller', time = now(), latest = 'Y',isnew='Y'", $dblink);
 //	mysql_query("insert into ".$config["table_prefix"]."pages set tag = 'PageIndex', body = '{{PageIndex}}', user = 'WakkaInstaller', time = now(), latest = 'Y',isnew='Y'", $dblink);
-	mysql_query("insert into ".$config["table_prefix"]."pages set tag = 'CategoryCategory',body ='".mysql_escape_string("{{category  format=\"owner time history\"}}")."',user = 'WakkaInstaller', time=now(), latest='Y',isnew='Y'",$dblink);
+	mysql_query("insert into ".$config["table_prefix"]."pages set tag = 'CategoryCategory',body ='".mysql_real_escape_string("{{category  format=\"owner time history\"}}")."',user = 'WakkaInstaller', time=now(), latest='Y',isnew='Y'",$dblink);
 	mysql_query("insert into ".$config["table_prefix"]."pages set tag = 'UploadFile', body = '{{files}}', user = 'WakkaInstaller', time = now(), latest = 'Y',isnew='Y'", $dblink);
-	mysql_query("insert into ".$config["table_prefix"]."pages set tag = 'GoodStyle', body = '".mysql_escape_string("[[CooCooWakka:GoodStyle CooCooWakka's Style Guide]]")."', user = 'WakkaInstaller', time = now(), latest = 'Y', isnew='Y'", $dblink);
-        mysql_query("insert into ".$config["table_prefix"]."pages set tag = 'CooCooWakka', body = '".mysql_escape_string("[[CooCooWakka:HomePage Visit CooCooWakka's Home]]")."', user = 'WakkaInstaller', time = now(), latest = 'Y', isnew='Y'", $dblink);
+	mysql_query("insert into ".$config["table_prefix"]."pages set tag = 'GoodStyle', body = '".mysql_real_escape_string("[[CooCooWakka:GoodStyle CooCooWakka's Style Guide]]")."', user = 'WakkaInstaller', time = now(), latest = 'Y', isnew='Y'", $dblink);
+        mysql_query("insert into ".$config["table_prefix"]."pages set tag = 'CooCooWakka', body = '".mysql_real_escape_string("[[CooCooWakka:HomePage Visit CooCooWakka's Home]]")."', user = 'WakkaInstaller', time = now(), latest = 'Y', isnew='Y'", $dblink);
 
 	test("Adding some pages...", 1);
 	}
