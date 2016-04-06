@@ -1026,6 +1026,72 @@
             // tough luck.
             return false;
         }
+        
+        function ldap_authenticate_by_username( $p_username, $p_password ) {
+                $c_username = $p_username;
+
+                $t_ldap_organization = $this->GetConfigValue('ldap_organization');
+                $t_ldap_root_dn = $this->GetConfigValue( 'ldap_root_dn' );
+        
+                $t_ldap_uid_field = $this->GetConfigValue('ldap_uid_field');
+                $t_search_filter = "(&$t_ldap_organization($t_ldap_uid_field=$c_username))";
+                $t_search_attrs = array('mail','dn');
+        
+                # Bind
+                //log_event( LOG_LDAP, "Binding to LDAP server" );
+                $ldapconn = ldap_connect($this->GetConfigValue('ldap_server'));
+                if ( $ldapconn === false ) {
+                    return false;
+                }
+                
+                ldap_set_option($ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3);
+                $ldaprdn = $this->GetConfigValue('ldap_bind_dn');
+                $ldappass = $this->GetConfigValue('ldap_bind_pswd');
+                $ldapbind = ldap_bind($ldapconn, $ldaprdn, $ldappass);
+                // verify binding
+                if ($ldapbind) {
+                    //echo "LDAP bind successful...";
+                } else {
+                    //echo "LDAP bind failed...";
+                    return false;
+                }
+
+                # Search for the user id
+                $t_sr = ldap_search( $ldapconn, $t_ldap_root_dn, $t_search_filter, $t_search_attrs );
+                if ( $t_sr === false ) {
+                    ldap_unbind( $ldapconn );
+                    return false;
+                }
+        
+                $t_info = ldap_get_entries( $ldapconn, $t_sr );
+                if ( $t_info === false ) {
+                    ldap_free_result( $t_sr );
+                    ldap_unbind( $ldapconn );
+                    return false;
+                }
+        
+                $t_authenticated = false;
+        
+                if ( $t_info['count'] > 0 ) {
+                    # Try to authenticate to each until we get a match
+                    for ( $i = 0; $i < $t_info['count']; $i++ ) {
+                        $t_dn = $t_info[$i]['dn'];
+        
+                        # Attempt to bind with the DN and password
+                        if ( ldap_bind( $ldapconn, $t_dn, $p_password ) ) {
+                            $t_authenticated = true;
+                            break;
+                        }
+                    }
+                } else {
+                    return false;
+                }
+                
+                ldap_free_result( $t_sr );
+                ldap_unbind( $ldapconn );
+                ldap_close($ldapconn);
+                return $t_authenticated;
+        }
          
         // XML
         function WriteRecentChangesXML() {

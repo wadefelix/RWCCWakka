@@ -79,16 +79,27 @@
             // if user name already exists, check password
             if ($existingUser = $this->LoadUser($_POST["name"])) {
                 // check password
-                if ($existingUser["password"] == md5($_POST["password"])) {
+                if ( ('ldap' == $this->GetConfigValue("login_method") && $this->ldap_authenticate_by_username($_POST["name"], $_POST["password"])) 
+                   || ('basic' == $this->GetConfigValue("login_method") && $existingUser["password"] == md5($_POST["password"])) ) {
                     $this->SetUser($existingUser,$_POST['rememberme']);
                     $this->Redirect($this->href());
                 } else {
                     $error = _MI_ERROR_PASSWD;//"Wrong password!";
                 }
             }
+            // create account for ldap user
+            else if ('ldap' == $this->GetConfigValue("login_method") && $this->ldap_authenticate_by_username($_POST["name"], $_POST["password"])) {
+                $name = trim($_POST["name"]);
+                $email = ""; // email from ldap info
+                $this->Query("insert into ".$this->config["table_prefix"]."users set ". "signuptime = now(), ". "name = '".mysql_escape_string($name)."', ". "email = '".mysql_escape_string($email)."', ". "password = 'LDAP'");
+                // log in
+                $this->SetUser($this->LoadUser($name));
+                // forward
+                $this->Redirect($this->href());
+            }
             // otherwise, create new account
             else if($this->GetConfigValue("open_register"))
-                {
+            {
                 $name = trim($_POST["name"]);
                 $email = trim($_POST["email"]);
                 $password = $_POST["password"];
