@@ -202,6 +202,9 @@ define("_MI_NONE","None");
 define("_MI_EDIT_ADVICE","");
 define("_MI_DISPLAYALIASNAME","AliasName");
 
+//createpage
+define("_MI_CREATE_PAGE","Create");
+
 //acl
 define("_MI_YOUARE_NOTOWNER","You're not the owner of this page.");
 define("_MI_ACL_GIVEOWNERSHIP"," and gave ownership to ");

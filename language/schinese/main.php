@@ -188,6 +188,9 @@ define("_MI_NONE","空");
 define("_MI_EDIT_ADVICE","**一点建议**：如果您是新手，请在编辑之前阅读一下[[GoodStyle]]，如果您只是希望试试CooCooWakka是如何工作，请到[[SandBox]]进行您的试验，感谢您的参与。**提醒Spammer们**: 本站已经对外部连接加入rel=nofollow属性。");
 define("_MI_DISPLAYALIASNAME","别名/昵称:");
 
+//createpage
+define("_MI_CREATE_PAGE","创建");
+
 //acl
 define("_MI_YOUARE_NOTOWNER","对不起，您并非该页的所有者。");
 define("_MI_ACL_GIVEOWNERSHIP","并把拥有者设为:");

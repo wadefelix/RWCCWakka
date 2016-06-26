@@ -188,6 +188,9 @@ define("_MI_NONE","空");
 define("_MI_EDIT_ADVICE","**一點建議**：如果您是新手，請在編輯之前閱讀一下[[GoodStyle]]，如果您只是希望試試CooCooWakka是如何工作，請到[[SandBox]]進行您的試驗，感謝您的參與。");
 define("_MI_DISPLAYALIASNAME","別名/匿稱:");
 
+//createpage
+define("_MI_CREATE_PAGE","创建");
+
 //acl
 define("_MI_YOUARE_NOTOWNER","對不起，您並非該頁的所有者。");
 define("_MI_ACL_GIVEOWNERSHIP","並把擁有者設為:");
