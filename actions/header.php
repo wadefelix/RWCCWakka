@@ -62,7 +62,7 @@ if($handle=opendir("./css/")){
 	</script>
 </head>
 
-<body <?php echo (($user["doubleclickedit"] == Y) && ($this->GetMethod() == "show") ? "ondblclick=\"document.location='".$this->href("edit")."';\" " : "") ?>
+<body <?php echo (( isset($user["doubleclickedit"]) && $user["doubleclickedit"] == Y) && ($this->GetMethod() == "show") ? "ondblclick=\"document.location='".$this->href("edit")."';\" " : "") ?>
 	<?php echo $message ? "onLoad=\"alert('".$message."');\" " : "" ?>
 >
 
