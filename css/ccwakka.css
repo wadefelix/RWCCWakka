@@ -282,3 +282,6 @@ font-size:0.94em;
 color:#555;
 }
 
+img.image {
+max-width: 800px;
+}
