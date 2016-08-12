@@ -96,7 +96,7 @@ insertButton('images/tb/rule.png','"._MI_HORIZONTAL_RULE."','----\\n');
                     $this->ClearLinkTable();
                     // purge old page revisions
                     if ($days = $this->GetConfigValue("pages_purge_time")) {
-                    $this->Query("delete from ".$this->config["table_prefix"]."pages where time < date_sub(now(),interval '".mysqli_real_escape_string($this->dblink,$days)."' day) and latest = 'N'");
+                    $this->Query("delete from ".$this->config["table_prefix"]."pages where time < date_sub(now(),interval '".mysql_escape_string($days)."' day) and latest = 'N'");
                     }
                     // forward
                     $this->Redirect($this->href());

@@ -17,7 +17,7 @@
             //print("<strong>This is the list of pages you've edited, ordered by the time of your last change (<a href=\"".$this->href("", $tag)."\">order alphabetically</a>).</strong><br /><br />\n");
             print("<strong>"._MI_YOUREDIT."(<a href=\"".$this->href("", $tag)."\">"._MI_ORDERINDEX."</a>).</strong><br /><br />\n");
              
-            if ($pages = $this->LoadAll("SELECT tag, time FROM ".$this->config["table_prefix"]."pages WHERE user = '".mysqli_real_escape_string($this->dblink,$this->UserName())."' AND comment_on='' ORDER BY time ASC, tag ASC")) {
+            if ($pages = $this->LoadAll("SELECT tag, time FROM ".$this->config["table_prefix"]."pages WHERE user = '".mysql_escape_string($this->UserName())."' AND comment_on='' ORDER BY time ASC, tag ASC")) {
                  
                 foreach ($pages as $page) {
                     $edited_pages[$page["tag"]] = $page["time"];
@@ -50,7 +50,7 @@
         } else {
             //        print("<strong>This is the list of pages you've edited, along with the time of your last change (<a href=\"".$this->href("", $tag,"bydate=1")."\">order by date</a>).</strong><br /><br />\n");
             print("<strong>"._MI_YOUREDIT."(<a href=\"".$this->href("", $tag, "bydate=1")."\">"._MI_ORDERDATE."</a>).</strong><br /><br />\n");
-            if ($pages = $this->LoadAll("SELECT tag, time FROM ".$this->config["table_prefix"]."pages WHERE user = '".mysqli_real_escape_string($this->dblink,$this->UserName())."' AND tag NOT LIKE 'Comment%' ORDER BY tag ASC, time DESC")) {
+            if ($pages = $this->LoadAll("SELECT tag, time FROM ".$this->config["table_prefix"]."pages WHERE user = '".mysql_escape_string($this->UserName())."' AND tag NOT LIKE 'Comment%' ORDER BY tag ASC, time DESC")) {
                 foreach ($pages as $page) {
                     if ($last_tag != $page["tag"]) {
                         $my_edits_count++;

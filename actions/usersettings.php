@@ -8,7 +8,7 @@
          
         // is user trying to update?
         if ($_REQUEST["action"] == "update") {
-            $this->Query("update ".$this->config["table_prefix"]."users set ". "email = '".mysqli_real_escape_string($this->dblink,$_POST["email"])."', ". "doubleclickedit = '".mysqli_real_escape_string($this->dblink,$_POST["doubleclickedit"])."', ". "show_comments = '".mysqli_real_escape_string($this->dblink,$_POST["show_comments"])."', ". "revisioncount = '".mysqli_real_escape_string($this->dblink,$_POST["revisioncount"])."', ". "changescount = '".mysqli_real_escape_string($this->dblink,$_POST["changescount"])."', ". "motto = '".mysqli_real_escape_string($this->dblink,$_POST["motto"])."' ". "where name = '".$user["name"]."' limit 1");
+            $this->Query("update ".$this->config["table_prefix"]."users set ". "email = '".mysql_escape_string($_POST["email"])."', ". "doubleclickedit = '".mysql_escape_string($_POST["doubleclickedit"])."', ". "show_comments = '".mysql_escape_string($_POST["show_comments"])."', ". "revisioncount = '".mysql_escape_string($_POST["revisioncount"])."', ". "changescount = '".mysql_escape_string($_POST["changescount"])."', ". "motto = '".mysql_escape_string($_POST["motto"])."' ". "where name = '".$user["name"]."' limit 1");
              
             $this->SetUser($this->LoadUser($user["name"]));
              
@@ -91,7 +91,7 @@
             else if ('ldap' == $this->GetConfigValue("login_method") && $this->ldap_authenticate_by_username($_POST["name"], $_POST["password"])) {
                 $name = trim($_POST["name"]);
                 $email = ""; // email from ldap info
-                $this->Query("insert into ".$this->config["table_prefix"]."users set ". "signuptime = now(), ". "name = '".mysqli_real_escape_string($this->dblink,$name)."', ". "email = '".mysqli_real_escape_string($this->dblink,$email)."', ". "password = 'LDAP'");
+                $this->Query("insert into ".$this->config["table_prefix"]."users set ". "signuptime = now(), ". "name = '".mysql_escape_string($name)."', ". "email = '".mysql_escape_string($email)."', ". "password = 'LDAP'");
                 // log in
                 $this->SetUser($this->LoadUser($name));
                 // forward
@@ -114,7 +114,7 @@
                 else if (strlen($password) < 5) $error = _MI_ERROR_PWDTOOSHORT;//"Password too short.";
                 else
                     {
-                    $this->Query("insert into ".$this->config["table_prefix"]."users set ". "signuptime = now(), ". "name = '".mysqli_real_escape_string($this->dblink,$name)."', ". "email = '".mysqli_real_escape_string($this->dblink,$email)."', ". "password = md5('".mysqli_real_escape_string($this->dblink,$_POST["password"])."')");
+                    $this->Query("insert into ".$this->config["table_prefix"]."users set ". "signuptime = now(), ". "name = '".mysql_escape_string($name)."', ". "email = '".mysql_escape_string($email)."', ". "password = md5('".mysql_escape_string($_POST["password"])."')");
                      
                     // log in
                     $this->SetUser($this->LoadUser($name));

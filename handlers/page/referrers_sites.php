@@ -8,7 +8,7 @@ $this->nofollow=true;
 
 // purge referrers
     if ($days = $this->GetConfigValue("referrers_purge_time")) {
-        $this->Query("delete from ".$this->config["table_prefix"]."referrers where time < date_sub(now(), interval '".mysqli_real_escape_string($this->dblink,$days)."' day)");
+        $this->Query("delete from ".$this->config["table_prefix"]."referrers where time < date_sub(now(), interval '".mysql_escape_string($days)."' day)");
     }
 
                  if ($global = $_REQUEST["global"])

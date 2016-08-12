@@ -146,7 +146,7 @@
                 elseif($revisions[0]['body'] == $redirect_body_back) {
                     $error = 0;//allow to move back.
                     $this->Query("update ".$this->GetConfigValue("table_prefix")."pages set latest='N' where ta
-                        g='".mysqli_real_escape_string($this->dblink,$new_tag)."';");
+                        g='".mysql_escape_string($new_tag)."';");
                 }
                 else $error = 1;
                 if ($error == 1) {
@@ -155,17 +155,17 @@
                     $this->Redirect($this->Href("move", $this->GetPageTag()));
                 } else {
                     //Move the latest edition first.
-                    $this->Query("update ".$this->GetConfigValue("table_prefix")."pages set tag='".mysqli_real_escape_string($this->dblink,$new_tag)."' where latest='Y' and tag='".mysqli_real_escape_string($this->dblink,$this->GetPageTag())."';");
+                    $this->Query("update ".$this->GetConfigValue("table_prefix")."pages set tag='".mysql_escape_string($new_tag)."' where latest='Y' and tag='".mysql_escape_string($this->GetPageTag())."';");
                     //Write redirection to old page.
                     $this->SavePage($this->GetPageTag(), $redirect_body, "", "Y", _MI_MOVE_TO.$new_tag);
                     //Move the old versions.
-                    $this->Query("update ".$this->GetConfigValue("table_prefix")."pages set tag='".mysqli_real_escape_string($this->dblink,$new_tag)."' where latest!='Y'and tag='".mysqli_real_escape_string($this->dblink,$this->GetPageTag())."';");
+                    $this->Query("update ".$this->GetConfigValue("table_prefix")."pages set tag='".mysql_escape_string($new_tag)."' where latest!='Y'and tag='".mysql_escape_string($this->GetPageTag())."';");
                     //Move the comments
-                    $this->Query("update ".$this->GetConfigValue("table_prefix")."pages set comment_on='".mysqli_real_escape_string($this->dblink,$new_tag)."' where comment_on='".mysqli_real_escape_string($this->dblink,$this->GetPageTag())."';");
+                    $this->Query("update ".$this->GetConfigValue("table_prefix")."pages set comment_on='".mysql_escape_string($new_tag)."' where comment_on='".mysql_escape_string($this->GetPageTag())."';");
                      
                     //Modify the link tracking table
-                    $this->Query("update ".$this->GetConfigValue("table_prefix")."links set from_tag='".mysqli_real_escape_string($this->dblink,$new_tag)."' where from_tag='".mysqli_real_escape_string($this->dblink,$this->GetPageTag())."';");
-                    $this->Query("insert into ".$this->GetConfigValue("table_prefix")."links set from_tag='".mysqli_real_escape_string($this->dblink,$this->GetPageTag())."', to_tag='".mysqli_real_escape_string($this->dblink,$new_tag)."';");
+                    $this->Query("update ".$this->GetConfigValue("table_prefix")."links set from_tag='".mysql_escape_string($new_tag)."' where from_tag='".mysql_escape_string($this->GetPageTag())."';");
+                    $this->Query("insert into ".$this->GetConfigValue("table_prefix")."links set from_tag='".mysql_escape_string($this->GetPageTag())."', to_tag='".mysql_escape_string($new_tag)."';");
                      
                     if ($this->GetPageUploadDir($this->GetPageTag())) {
                         rename($this->GetPageUploadDir($this->GetPageTag()), $this->GetPageUploadDir($new_tag, false));
@@ -198,8 +198,8 @@
     }
     if ($rmform->validate() && $delright) {
         $rmtag = $this->GetPageTag();
-        $this->Query("delete from ".$this->GetConfigValue("table_prefix")."pages where tag='".mysqli_real_escape_string($this->dblink,$rmtag)."' or comment_on='".mysqli_real_escape_string($this->dblink,$rmtag)."';");
-        $this->Query("delete from ".$this->GetConfigValue("table_prefix")."links where from_tag='".mysqli_real_escape_string($this->dblink,$rmtag)."';");
+        $this->Query("delete from ".$this->GetConfigValue("table_prefix")."pages where tag='".mysql_escape_string($rmtag)."' or comment_on='".mysql_escape_string($rmtag)."';");
+        $this->Query("delete from ".$this->GetConfigValue("table_prefix")."links where from_tag='".mysql_escape_string($rmtag)."';");
         if ($this->GetPageUploadDir($rmtag))
         deldir($this->GetPageUploadDir($rmtag));
         $this->LogOperation("_OP_PAGE_REMOVE", $rmtag);
@@ -219,9 +219,9 @@
     if ($rbform->validate() && $rollbackright) {
         $rbtag = $this->GetPageTag();
         $rbid = $this->GetLastDiffId($rbtag);
-        $this->Query("delete from ".$this->GetConfigValue("table_prefix")."pages where tag='".mysqli_real_escape_string($this->dblink,$rbtag)."' and latest='Y';");
+        $this->Query("delete from ".$this->GetConfigValue("table_prefix")."pages where tag='".mysql_escape_string($rbtag)."' and latest='Y';");
         $this->Query("update ".$this->GetConfigValue("table_prefix")."pages set latest='Y' where id='$rbid';");
-        $newpage = $this->LoadSingle("select * from ".$this->GetConfigValue("table_prefix")."pages where tag='".mysqli_real_escape_string($this->dblink,$rbtag)."' and latest='Y';");
+        $newpage = $this->LoadSingle("select * from ".$this->GetConfigValue("table_prefix")."pages where tag='".mysql_escape_string($rbtag)."' and latest='Y';");
         if ($newpage) {
             $this->ClearLinkTable();
             $this->StartLinkTracking();

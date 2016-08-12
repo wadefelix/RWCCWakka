@@ -5,8 +5,8 @@ $config = $_POST["config"];
 
 // test configuration
 print("<strong>Testing Configuration</strong><br />\n");
-test("Testing MySQL connection settings...", $dblink = @mysqli_connect($config["mysql_host"], $config["mysql_user"], $config["mysql_password"]));
-test("Looking for database...", @mysqli_select_db($dblink, $config["mysql_database"]), "The database you configured was not found. Remember, it needs to exist before you can install/upgrade Wakka!");
+test("Testing MySQL connection settings...", $dblink = @mysql_connect($config["mysql_host"], $config["mysql_user"], $config["mysql_password"]));
+test("Looking for database...", @mysql_select_db($config["mysql_database"], $dblink), "The database you configured was not found. Remember, it needs to exist before you can install/upgrade Wakka!");
 print("<br />\n");
 
 // do installation stuff
@@ -18,7 +18,7 @@ switch ($version)
 case "0":
 	print("<strong>Installing Stuff</strong><br />\n");
 	$pageok=test("Creating page table...",
-		@mysqli_query($dblink,
+		@mysql_query(
 			"CREATE TABLE ".$config["table_prefix"]."pages (".
   			"id int(10) unsigned NOT NULL auto_increment,".
   			"tag varchar(50) NOT NULL default '',".
@@ -46,35 +46,35 @@ case "0":
   			"KEY idx_time (time),".
   			"KEY idx_latest (latest),".
   			"KEY idx_comment_on (comment_on)".
-			") ENGINE=MyISAM;"), "Already exists?", 0);
+			") ENGINE=MyISAM;", $dblink), "Already exists?", 0);
 	test("Creating ACL table...",
-		@mysqli_query($dblink,
+		@mysql_query(
 			"CREATE TABLE ".$config["table_prefix"]."acls (".
   			"page_tag varchar(50) NOT NULL default '',".
 			"privilege varchar(20) NOT NULL default '',".
   			"list text NOT NULL,".
  			"PRIMARY KEY  (page_tag,privilege)".
-			") ENGINE=MyISAM"), "Already exists?", 0);
+			") ENGINE=MyISAM", $dblink), "Already exists?", 0);
 	test("Creating link tracking table...",
-		@mysqli_query($dblink,
+		@mysql_query(
 			"CREATE TABLE ".$config["table_prefix"]."links (".
 			"from_tag char(50) NOT NULL default '',".
   			"to_tag char(50) NOT NULL default '',".
   			"UNIQUE KEY from_tag (from_tag,to_tag),".
   			"KEY idx_from (from_tag),".
   			"KEY idx_to (to_tag)".
-			") ENGINE=MyISAM"), "Already exists?", 0);
+			") ENGINE=MyISAM", $dblink), "Already exists?", 0);
 	test("Creating referrer table...",
-		@mysqli_query($dblink,
+		@mysql_query(
 			"CREATE TABLE ".$config["table_prefix"]."referrers (".
   			"page_tag char(50) NOT NULL default '',".
   			"referrer char(150) NOT NULL default '',".
   			"time datetime NOT NULL default '0000-00-00 00:00:00',".
   			"KEY idx_page_tag (page_tag),".
   			"KEY idx_time (time)".
-			") ENGINE=MyISAM"), "Already exists?", 0);
+			") ENGINE=MyISAM", $dblink), "Already exists?", 0);
 	test("Creating user table...",
-		@mysqli_query($dblink,
+		@mysql_query(
 			"CREATE TABLE ".$config["table_prefix"]."users (".
   			"name varchar(80) NOT NULL default '',".
   			"password varchar(32) NOT NULL default '',".
@@ -88,23 +88,23 @@ case "0":
   			"PRIMARY KEY  (name),".
   			"KEY idx_name (name),".
   			"KEY idx_signuptime (signuptime)".
-			") ENGINE=MyISAM"), "Already exists?", 0);
+			") ENGINE=MyISAM", $dblink), "Already exists?", 0);
 	if($pageok){
-	mysqli_query($dblink,"insert into ".$config["table_prefix"]."pages set tag = '".$config["root_page"]."', body = '".mysql_real_escape_string("Welcome to your [[CooCooWakka:CooCooWakka CooCooWakka]] site! Click on the \"Edit this page\" link at the bottom to get started.\n\nAlso don't forget to visit [[CooCooWakka:HomePage]]!\n\nUseful pages: OrphanedPages, WantedPages, TextSearch, UploadFile, CategoryCategory.")."', user = 'WakkaInstaller', time = now(), latest = 'Y' , isnew='Y'");
-	mysqli_query($dblink,"insert into ".$config["table_prefix"]."pages set tag = 'RecentChanges', body = '{{RecentChanges}}', user = 'WakkaInstaller', time = now(), latest = 'Y', isnew='Y'");
-	mysqli_query($dblink,"insert into ".$config["table_prefix"]."pages set tag = 'RecentlyCommented', body = '{{RecentlyCommented}}', user = 'WakkaInstaller', time = now(), latest = 'Y', isnew='Y'");
-	mysqli_query($dblink,"insert into ".$config["table_prefix"]."pages set tag = 'UserSettings', body = '{{UserSettings}}', user = 'WakkaInstaller', time = now(), latest = 'Y', isnew='Y'");
-	mysqli_query($dblink,"insert into ".$config["table_prefix"]."pages set tag = 'PageIndex', body = '{{PageIndex}}', user = 'WakkaInstaller', time = now(), latest = 'Y', isnew='Y'");
-	mysqli_query($dblink,"insert into ".$config["table_prefix"]."pages set tag = 'WantedPages', body = '{{WantedPages}}', user = 'WakkaInstaller', time = now(), latest = 'Y', isnew='Y'");
-	mysqli_query($dblink,"insert into ".$config["table_prefix"]."pages set tag = 'OrphanedPages', body = '{{OrphanedPages}}', user = 'WakkaInstaller', time = now(), latest = 'Y', isnew='Y'");
-	mysqli_query($dblink,"insert into ".$config["table_prefix"]."pages set tag = 'TextSearch', body = '{{TextSearch}}', user = 'WakkaInstaller', time = now(), latest = 'Y', isnew='Y'");
-	mysqli_query($dblink,"insert into ".$config["table_prefix"]."pages set tag = 'MyPages', body = '{{MyPages}}', user = 'WakkaInstaller', time = now(), latest = 'Y',isnew='Y'");
-	mysqli_query($dblink,"insert into ".$config["table_prefix"]."pages set tag = 'MyChanges', body = '{{MyChanges}}', user = 'WakkaInstaller', time = now(), latest = 'Y',isnew='Y'");
+	mysql_query("insert into ".$config["table_prefix"]."pages set tag = '".$config["root_page"]."', body = '".mysql_real_escape_string("Welcome to your [[CooCooWakka:CooCooWakka CooCooWakka]] site! Click on the \"Edit this page\" link at the bottom to get started.\n\nAlso don't forget to visit [[CooCooWakka:HomePage]]!\n\nUseful pages: OrphanedPages, WantedPages, TextSearch, UploadFile, CategoryCategory.")."', user = 'WakkaInstaller', time = now(), latest = 'Y' , isnew='Y'", $dblink);
+	mysql_query("insert into ".$config["table_prefix"]."pages set tag = 'RecentChanges', body = '{{RecentChanges}}', user = 'WakkaInstaller', time = now(), latest = 'Y', isnew='Y'", $dblink);
+	mysql_query("insert into ".$config["table_prefix"]."pages set tag = 'RecentlyCommented', body = '{{RecentlyCommented}}', user = 'WakkaInstaller', time = now(), latest = 'Y', isnew='Y'", $dblink);
+	mysql_query("insert into ".$config["table_prefix"]."pages set tag = 'UserSettings', body = '{{UserSettings}}', user = 'WakkaInstaller', time = now(), latest = 'Y', isnew='Y'", $dblink);
+	mysql_query("insert into ".$config["table_prefix"]."pages set tag = 'PageIndex', body = '{{PageIndex}}', user = 'WakkaInstaller', time = now(), latest = 'Y', isnew='Y'", $dblink);
+	mysql_query("insert into ".$config["table_prefix"]."pages set tag = 'WantedPages', body = '{{WantedPages}}', user = 'WakkaInstaller', time = now(), latest = 'Y', isnew='Y'", $dblink);
+	mysql_query("insert into ".$config["table_prefix"]."pages set tag = 'OrphanedPages', body = '{{OrphanedPages}}', user = 'WakkaInstaller', time = now(), latest = 'Y', isnew='Y'", $dblink);
+	mysql_query("insert into ".$config["table_prefix"]."pages set tag = 'TextSearch', body = '{{TextSearch}}', user = 'WakkaInstaller', time = now(), latest = 'Y', isnew='Y'", $dblink);
+	mysql_query("insert into ".$config["table_prefix"]."pages set tag = 'MyPages', body = '{{MyPages}}', user = 'WakkaInstaller', time = now(), latest = 'Y',isnew='Y'", $dblink);
+	mysql_query("insert into ".$config["table_prefix"]."pages set tag = 'MyChanges', body = '{{MyChanges}}', user = 'WakkaInstaller', time = now(), latest = 'Y',isnew='Y'", $dblink);
 //	mysql_query("insert into ".$config["table_prefix"]."pages set tag = 'PageIndex', body = '{{PageIndex}}', user = 'WakkaInstaller', time = now(), latest = 'Y',isnew='Y'", $dblink);
-	mysqli_query($dblink,"insert into ".$config["table_prefix"]."pages set tag = 'CategoryCategory',body ='".mysql_real_escape_string("{{category  format=\"owner time history\"}}")."',user = 'WakkaInstaller', time=now(), latest='Y',isnew='Y'");
-	mysqli_query($dblink,"insert into ".$config["table_prefix"]."pages set tag = 'UploadFile', body = '{{files}}', user = 'WakkaInstaller', time = now(), latest = 'Y',isnew='Y'");
-	mysqli_query($dblink,"insert into ".$config["table_prefix"]."pages set tag = 'GoodStyle', body = '".mysql_real_escape_string("[[CooCooWakka:GoodStyle CooCooWakka's Style Guide]]")."', user = 'WakkaInstaller', time = now(), latest = 'Y', isnew='Y'");
-        mysqli_query($dblink,"insert into ".$config["table_prefix"]."pages set tag = 'CooCooWakka', body = '".mysql_real_escape_string("[[CooCooWakka:HomePage Visit CooCooWakka's Home]]")."', user = 'WakkaInstaller', time = now(), latest = 'Y', isnew='Y'");
+	mysql_query("insert into ".$config["table_prefix"]."pages set tag = 'CategoryCategory',body ='".mysql_real_escape_string("{{category  format=\"owner time history\"}}")."',user = 'WakkaInstaller', time=now(), latest='Y',isnew='Y'",$dblink);
+	mysql_query("insert into ".$config["table_prefix"]."pages set tag = 'UploadFile', body = '{{files}}', user = 'WakkaInstaller', time = now(), latest = 'Y',isnew='Y'", $dblink);
+	mysql_query("insert into ".$config["table_prefix"]."pages set tag = 'GoodStyle', body = '".mysql_real_escape_string("[[CooCooWakka:GoodStyle CooCooWakka's Style Guide]]")."', user = 'WakkaInstaller', time = now(), latest = 'Y', isnew='Y'", $dblink);
+        mysql_query("insert into ".$config["table_prefix"]."pages set tag = 'CooCooWakka', body = '".mysql_real_escape_string("[[CooCooWakka:HomePage Visit CooCooWakka's Home]]")."', user = 'WakkaInstaller', time = now(), latest = 'Y', isnew='Y'", $dblink);
 
 	test("Adding some pages...", 1);
 	}
@@ -119,7 +119,7 @@ case "0":
 case "0.1":
 	print("<strong>0.1 to 0.1.1</strong><br />\n");
 	test("Just very slightly altering the pages table...", 
-		@mysqli_query($dblink,"alter table ".$config["table_prefix"]."pages add body_r text not null default '' after body"), "Already done? Hmm!", 0);
+		@mysql_query("alter table ".$config["table_prefix"]."pages add body_r text not null default '' after body", $dblink), "Already done? Hmm!", 0);
 	test("Claiming all your base...", 1);
 
 // from 0.1.1 to 0.1.2
@@ -135,8 +135,8 @@ case "0.1.2":
 //	print("<strong>Upgrade to CooCooWakka 0.0.1</strong><br />\n");
 //	test("Add Category...",mysql_query("alter table ".$config["table_prefix"]."pages add category varchar(50) not null default '' after owner;?,$dblink),"OK,You don't have to do that~",0);
 	print("<br /><strong>Preparing...</strong><br />");
-@mysqli_query($dblink,"alter table ".$config["table_prefix"]."pages add category varchar(50) not null default '' after owner;");
-@mysqli_query($dblink,"alter table ".$config["table_prefix"]."pages ADD tinychange ENUM( 'N', 'Y' ) DEFAULT 'N' NOT NULL , ADD note VARCHAR( 50 ), ADD isnew ENUM( 'N', 'Y' ) DEFAULT 'N' NOT NULL AFTER comment_on ;");
+@mysql_query("alter table ".$config["table_prefix"]."pages add category varchar(50) not null default '' after owner;",$dblink);
+@mysql_query("alter table ".$config["table_prefix"]."pages ADD tinychange ENUM( 'N', 'Y' ) DEFAULT 'N' NOT NULL , ADD note VARCHAR( 50 ), ADD isnew ENUM( 'N', 'Y' ) DEFAULT 'N' NOT NULL AFTER comment_on ;",$dblink);
 //	}
 //	if(!$wakkaConfig["AllowHtmlTags"]){ //0.0.2
 //	print("<strong>Upgrade to CooCooWakka 0.0.2</strong><br />\n");
@@ -147,7 +147,7 @@ ADD isnew ENUM( 'N', 'Y' ) DEFAULT 'N' NOT NULL AFTER comment_on ;
 //	}*/
 	print("<strong>Upgrading To CooCooWakka 0.0.7.0!</strong><br />\n");
 	/*test("Add Category...",*/
-	$v7=mysqli_query($dblink,"alter table ".$config["table_prefix"]."pages add `aliasname` VARCHAR( 50 ) NOT NULL ,ADD `keywords` VARCHAR( 100 ) NOT NULL ,ADD `description` VARCHAR( 100 ) NOT NULL ,ADD `edit_count` INT NOT NULL ,ADD `view_count` INT NOT NULL ,ADD `tview_count` INT NOT NULL ;");
+	$v7=mysql_query("alter table ".$config["table_prefix"]."pages add `aliasname` VARCHAR( 50 ) NOT NULL ,ADD `keywords` VARCHAR( 100 ) NOT NULL ,ADD `description` VARCHAR( 100 ) NOT NULL ,ADD `edit_count` INT NOT NULL ,ADD `view_count` INT NOT NULL ,ADD `tview_count` INT NOT NULL ;",$dblink);
 	test("Upgrading DataBase...",$v7,"What's Up?",0);
 	//mysql_query("insert into ".$config["table_prefix"]."pages set tag = 'GoodStyle', body = '".mysql_escape_string("[[CooCooWakka:GoodStyle CooCooWakka's Style Guide]]")."', user = 'WakkaInstaller', time = now(), latest = 'Y', isnew='Y'", $dblink);
         //mysql_query("insert into ".$config["table_prefix"]."pages set tag = 'CooCooWakka', body = '".mysql_escape_string("[[CooCooWakka:HomePage Visit CooCooWakka's Home]]")."', user = 'WakkaInstaller', time = now(), latest = 'Y', isnew='Y'", $dblink);
@@ -159,7 +159,7 @@ ADD isnew ENUM( 'N', 'Y' ) DEFAULT 'N' NOT NULL AFTER comment_on ;
        test("Fixing .htaccess...",1);
        case "0.0.7.1":
        print("<strong>Upgrading To CooCooWakka 0.0.7.2!</strong><br />\n");
-       $v72=mysqli_query($dblink,"ALTER TABLE ".$config["table_prefix"]."pages CHANGE `edit_count` `refer_count` INT(11) DEFAULT '0' NOT NULL;");
+       $v72=mysql_query("ALTER TABLE ".$config["table_prefix"]."pages CHANGE `edit_count` `refer_count` INT(11) DEFAULT '0' NOT NULL;",$dblink);
        test("Creating counter...",$v72,"~Er???",0);
        case "0.0.7.2":
 	print("<strong>Upgrading To CooCooWakka 0.0.7.3!</strong><br />\n");
@@ -201,7 +201,7 @@ ADD isnew ENUM( 'N', 'Y' ) DEFAULT 'N' NOT NULL AFTER comment_on ;
     $config['session_name']=uniqid("ccwakka");
     case "0.0.8.1":
     print("<strong>Upgrading To CooCooWakka 0.0.8.2!</strong><br />\n");
-    $v82=mysqli_query($dblink,"ALTER TABLE ".$config["table_prefix"]."pages CHANGE `note` `note` VARCHAR(255) DEFAULT NULL");
+    $v82=mysql_query("ALTER TABLE ".$config["table_prefix"]."pages CHANGE `note` `note` VARCHAR(255) DEFAULT NULL",$dblink);
     test("Making a tiny change of the DataBase...",$v82,"Failed?",0);
     test("Fixing a bug on Windows Platform...",1);
     test("Updating RecentChanges/FilesAction/LocalImage/PageIndex...",1);
