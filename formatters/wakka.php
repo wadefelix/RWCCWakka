@@ -511,12 +511,12 @@ if(!function_exists("highlightString")){
 		foreach ($words as $word) {
 			$pregs[]="/(".preg_quote($word,"/").")/i";
 		}
-		//$result= preg_replace('/(^|>)([^<]*)/e', '"\\1".preg_replace($pregs, \'<span class="searchhighlight">\'.chr(36).\'1</span>\', \'\\2\')', $buffer);
-        $result= preg_replace_callback('/(^|>)([^<]*)/', 
-            function ($m) use($pregs) {
-                return $m[1].preg_replace($pregs, '<span class="searchhighlight">'.chr(36).'1</span>', $m[2]);
-             
-            }, $buffer);
+		$result= preg_replace('/(^|>)([^<]*)/e', '"\\1".preg_replace($pregs, \'<span class="searchhighlight">\'.chr(36).\'1</span>\', \'\\2\')', $buffer);
+        //$result= preg_replace_callback('/(^|>)([^<]*)/', 
+        //    function ($m) use($pregs) {
+        //        return $m[1].preg_replace($pregs, '<span class="searchhighlight">'.chr(36).'1</span>', $m[2]);
+        //     
+        //    }, $buffer);
 		return stripslashes($result);
 	}
 }
