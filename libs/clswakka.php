@@ -1089,7 +1089,6 @@
                 
                 ldap_free_result( $t_sr );
                 ldap_unbind( $ldapconn );
-                ldap_close($ldapconn);
                 return $t_authenticated;
         }
          
