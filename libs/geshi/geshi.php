@@ -1943,9 +1943,6 @@ class GeSHi
 	function parse_non_string_part (&$stuff_to_parse)
 	{
 		$stuff_to_parse = ' ' . quotemeta(@htmlspecialchars($stuff_to_parse, ENT_COMPAT, $this->encoding));
-		// These vars will disappear in the future
-		$func = '$this->change_case';
-		$func2 = '$this->add_url_to_keyword';
 
 		//
 		// Regular expressions
@@ -2001,7 +1998,7 @@ class GeSHi
 							$stuff_to_parse = preg_replace_callback(
 							    "#([^a-zA-Z0-9\$_\|\#;>])($keyword)([^a-zA-Z0-9_<\|%\-&])#".($this->language_data['CASE_SENSITIVE'][$k]?'':'i'),
 							    function($m) use($k) {
-							        return $m[0].$this->add_url_to_keyword($m[2],$k,'BEGIN').'<|$styles>'.$this->add_url_to_keyword($m[2]).
+							        return $m[0].$this->add_url_to_keyword($m[2],$k,'BEGIN')."<|$styles>".$this->add_url_to_keyword($m[2]).
 							           '|>'.$this->add_url_to_keyword($m[2],$k,'END').$m[3];
 							    },
 							    $stuff_to_parse);
