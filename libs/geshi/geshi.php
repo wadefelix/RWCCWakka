@@ -1943,6 +1943,9 @@ class GeSHi
 	function parse_non_string_part (&$stuff_to_parse)
 	{
 		$stuff_to_parse = ' ' . quotemeta(@htmlspecialchars($stuff_to_parse, ENT_COMPAT, $this->encoding));
+        // These vars will disappear in the future
+        $func = '$this->change_case';
+        $func2 = '$this->add_url_to_keyword';
 
 		//
 		// Regular expressions
@@ -1995,13 +1998,13 @@ class GeSHi
 							// get highlighted if the language has a CSS keyword in it (like CSS, for example ;))
 							$styles = "/$k/";
 							$keyword = quotemeta($keyword);
-							$stuff_to_parse = preg_replace_callback(
-							    "#([^a-zA-Z0-9\$_\|\#;>])($keyword)([^a-zA-Z0-9_<\|%\-&])#".($this->language_data['CASE_SENSITIVE'][$k]?'':'i'),
-							    function($m) use($k) {
-							        return $m[1].$this->add_url_to_keyword($m[2],$k,'BEGIN')."<|$styles>".$this->change_case($m[2]).
-							           '|>'.$this->add_url_to_keyword($m[2],$k,'END').$m[3];
-							    },
-							    $stuff_to_parse);
+                            // Change the case of the word.  
+                            $stuff_to_parse = preg_replace(  
+                                    "#([^a-zA-Z0-9\$_\|\#;>])($keyword)([^a-zA-Z0-9_<\|%\-&])#".($this->language_data['CASE_SENSITIVE'][$k]?'':'i')."e", 
+                                    "'\\1' . $func2('\\2', '$k', 'BEGIN') . '<|$styles>' . $func('\\2') . '|>' . $func2('\\2', '$k', 'END') . '\\3'",  
+                                    $stuff_to_parse  
+                                );
+
 							$stuff_to_parse = substr($stuff_to_parse, 0, strlen($stuff_to_parse) - 1);
 						}
 					}
