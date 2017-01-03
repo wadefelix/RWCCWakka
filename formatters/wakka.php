@@ -11,7 +11,7 @@
 // This may look a bit strange, but all possible formatting tags have to be in a single regular expression for this to work correctly. Yup!
 
 global $coo_pat,$coo_pat2,$url_pattern;
-$url_pattern="[a-zA-Z]+\:\/\/[a-zA-Z0-9\-\._\?\,\'\/\\\+&%\$#\=~]+";
+$url_pattern="[a-zA-Z]+\:\/\/[a-zA-Z0-9\-\._\?\,\'\/\\\+&%\$#\=~\:@]+";
 $coo_pat2="/(".
           "\%\%.*?\%\%|\"\".*?\"\"|\[\[.*?\]\]".
 //          "|\b[a-z]+:\/\/\S+|[chr(0xa1)-chr(0xff)]+[a-z]+:\/\/\S+".
