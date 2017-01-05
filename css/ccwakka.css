@@ -285,3 +285,14 @@ color:#555;
 img.image {
 max-width: 800px;
 }
+
+code {
+background-color: rgba(0,0,0,0.04);
+font-size: 90%;
+padding: 0.5em;
+margin: 0px;
+border-radius: 3px;
+color: #333;
+word-wrap: break-word;
+box-sizing: border-box;
+}

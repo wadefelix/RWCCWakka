@@ -25,6 +25,7 @@ $coo_pat2="/(".
           "|\[HTML\].*?\[\/HTML\]".
           "|\[IMG\].*?\[\/IMG\]".
 	  "|\[DEL\].*?\[\/DEL\]".
+          "|`".
 	"|\[LEFT].*?\[\/LEFT\]|\[RIGHT].*?\[\/RIGHT\]|\[CENTER].*?\[\/CENTER\]".
           "|\[TABLE\].*?\[\/TABLE\]".
           "|----[-]*|---".
@@ -238,6 +239,11 @@ if (!function_exists("wakka2callback"))
 			static $monospace = 0;
 			return (++$monospace % 2 ? "<tt>" : "</tt>");
 		}
+                else if ($thing == "`")
+                {
+                    static $inlinecode = 0;
+                    return (++$inlinecode%2 ? "<code>" : "</code>");
+                }
 		// notes
         else if (preg_match("/^\'\'(.*?)\'\'(\[\[(.*?)\]\]){0,1}$/",$thing,$matches)) {
             static $refnum=0;
