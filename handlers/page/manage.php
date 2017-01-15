@@ -74,8 +74,8 @@
     $form->addElement('textarea', 'write', _MI_WRITEACL.':', $taAttrs);
     $form->addElement('textarea', 'comment', _MI_COMMENTSACL.':', $taAttrs);
     $form->addElement('select', 'owner', _MI_SETOWNER.":", $list_owner);
-    $buttons[] = &HTML_QuickForm::createElement('reset', 'btnClear', _MI_RESET);
-    $buttons[] = &HTML_QuickForm::createElement('submit', 'btnSubmit', _MI_SUBMIT);
+    $buttons[] = $form->createElement('reset', 'btnClear', _MI_RESET);
+    $buttons[] = $form->createElement('submit', 'btnSubmit', _MI_SUBMIT);
      
     if (!$form->IsFrozen()) {
         $form->addGroup($buttons, null, null, '&nbsp;');
