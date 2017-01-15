@@ -36,7 +36,7 @@
             $start = $this->GetMicroTime();
             if (!$result = $this->dblink->query($query)) {
                 ob_end_clean();
-                die("Query failed: ".$query." (".mysql_error().")");
+                die("Query failed: ".$query." (".$this->dblink->error.")");
             }
             $time = $this->GetMicroTime() - $start;
             $this->queryLog[] = array(
@@ -344,7 +344,7 @@
                 // add new revision
                 $this->Query("insert into ".$this->config["table_prefix"]."pages set ". "tag = '".mysqli_real_escape_string($this->dblink,$tag)."', ". ($comment_on ? "comment_on = '".mysqli_real_escape_string($this->dblink,$comment_on)."', " : ""). "time = now(), ". "owner = '".mysqli_real_escape_string($this->dblink,$owner)."', ". /* MatthiasAppel: CategoryCategory */ "category = '".mysqli_real_escape_string($this->dblink,$category)."', ". /**/
                  
-                "user = '".mysqli_real_escape_string($this->dblink,$user)."', ". "latest = 'Y', ". "body = '".mysqli_real_escape_string($this->dblink,trim($body))."', ". "tinychange= '".$tinychange."', ". "note= '".mysqli_real_escape_string($this->dblink,trim($note))."',". "isnew= '".$isnew."',". "aliasname= '".mysqli_real_escape_string($this->dblink,trim($aliasname))."',". "tview_count= '".$page["tview_count"]."',". "refer_count= '".$page["refer_count"]."';" );
+                "user = '".mysqli_real_escape_string($this->dblink,$user)."', ". "latest = 'Y', ". "body = '".mysqli_real_escape_string($this->dblink,trim($body))."', ". "tinychange= '".$tinychange."', ". "note= '".mysqli_real_escape_string($this->dblink,trim($note))."',". "isnew= '".$isnew."',". "aliasname= '".mysqli_real_escape_string($this->dblink,trim($aliasname))."',". "tview_count= '".(is_numeric($page['tview_count'])?$page["tview_count"]:0)."',". "refer_count= '".(is_numeric($page["refer_count"])?$page['refer_count']:0)."';" );
             }
              
             $this->WriteRecentChangesXML();
