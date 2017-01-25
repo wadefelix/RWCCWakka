@@ -1026,7 +1026,18 @@
             // tough luck.
             return false;
         }
-        
+        function basic_password_verify($pswd, $hash) {
+            if (strlen($hash)==32) {
+                return md5($pswd) == $hash;
+            } else {
+                if (version_compare(phpversion(), '5.5.0', '>=')) {
+                    return password_verify($pswd, $hash);
+                } /* else {
+                    # https://github.com/ircmaxell/password_compat
+                } */
+            }
+            return false;
+        }
         function ldap_authenticate_by_username( $p_username, $p_password ) {
                 $c_username = $p_username;
 

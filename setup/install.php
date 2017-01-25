@@ -77,7 +77,7 @@ case "0":
 		@mysqli_query($dblink,
 			"CREATE TABLE ".$config["table_prefix"]."users (".
   			"name varchar(80) NOT NULL default '',".
-  			"password varchar(32) NOT NULL default '',".
+  			"password varchar(255) NOT NULL default '',".
   			"email varchar(50) NOT NULL default '',".
   			"motto text NOT NULL,".
   			"revisioncount int(10) unsigned NOT NULL default '20',".

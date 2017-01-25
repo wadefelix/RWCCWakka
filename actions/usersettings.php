@@ -80,7 +80,7 @@
             if ($existingUser = $this->LoadUser($_POST["name"])) {
                 // check password
                 if ( ('ldap' == $this->GetConfigValue("login_method") && $this->ldap_authenticate_by_username($_POST["name"], $_POST["password"])) 
-                   || ('basic' == $this->GetConfigValue("login_method") && $existingUser["password"] == md5($_POST["password"])) ) {
+                   || ('basic' == $this->GetConfigValue("login_method") && $this->basic_password_verify( $_POST["password"], $existingUser["password"]) ) ) {
                     $this->SetUser($existingUser,$_POST['rememberme']);
                     $this->Redirect($this->href());
                 } else {
@@ -112,9 +112,17 @@
                 else if ($confpassword != $password) $error = _MI_ERROR_PWDMATCH;//;"Passwords didn't match.";
                 else if (preg_match("/ /", $password)) $error = _MI_ERROR_PWDSPACE;//"Spaces aren't allowed in passwords.";
                 else if (strlen($password) < 5) $error = _MI_ERROR_PWDTOOSHORT;//"Password too short.";
-                else
-                    {
-                    $this->Query("insert into ".$this->config["table_prefix"]."users set ". "signuptime = now(), ". "name = '".mysqli_real_escape_string($this->dblink,$name)."', ". "email = '".mysqli_real_escape_string($this->dblink,$email)."', ". "password = md5('".mysqli_real_escape_string($this->dblink,$_POST["password"])."')");
+                else {
+                    $pswd = null;
+                    if (version_compare(phpversion(), '5.5.0', '>=')) {
+                        $pswd = password_hash($_POST["password"], PASSWORD_DEFAULT);
+                    } else {
+                        $pswd = md5($_POST["password"]);
+                    }
+
+                    $this->Query("insert into ".$this->config["table_prefix"]."users set ". "signuptime = now(), ". "name = '".mysqli_real_escape_string($this->dblink,$name)."', "
+                                 . "email = '".mysqli_real_escape_string($this->dblink,$email)."', "
+                                 . "password = '$pswd'");
                      
                     // log in
                     $this->SetUser($this->LoadUser($name));
