@@ -92,8 +92,8 @@
          
     "header_action" => "header",
         "footer_action" => "footer",
-        "navigation_links" => "PageIndex :: RecentChanges :: RecentlyCommented :: [[UserSettings _MI_USERSETTINGS]]",
-        "logged_in_navigation_links" => "PageIndex :: RecentChanges :: RecentlyCommented :: [[UserSettings _MI_USERSETTINGS_ON]]",
+        "navigation_links" => "PageIndex :: CategoryCategory :: RecentChanges :: RecentlyCommented :: [[UserSettings _MI_USERSETTINGS]]",
+        "logged_in_navigation_links" => "PageIndex :: CategoryCategory :: RecentChanges :: RecentlyCommented :: [[UserSettings _MI_USERSETTINGS_ON]]",
         "referrers_purge_time" => 1,
         "pages_purge_time" => 0,
          
