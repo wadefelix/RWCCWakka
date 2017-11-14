@@ -14,6 +14,7 @@ $user = $this->GetUser();
 <head>
 	<title><?php echo $this->GetWakkaName()." : ".$this->GetDisplayName($this->GetPageTag()); ?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php  echo $this->GetConfigValue("charset") ?>" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta name="keywords" content="<?php echo htmlspecialchars($this->GetConfigValue("meta_keywords")." ".$this->GetPageTag()); ?>" />
 	<meta name="description" content="<?php echo htmlspecialchars($this->GetConfigValue("meta_description")) ?>" />
 	<meta name="generator" content="CooCooWakka <?php echo $this->GetConfigValue("coo_version");?>" /><?php 

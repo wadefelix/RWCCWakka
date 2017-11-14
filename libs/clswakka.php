@@ -472,6 +472,13 @@
                 if($this->nofollow)$nofollow=" rel=\"nofollow\"";
 		return ($icon?"<a href=\"$tag\" target=\"_blank\" $nofollow><img src=\"".$this->tinyHref("/images/www.gif")."\" width=\"11\" border=\"0\" alt=\"[External Link]\" title=\""._MI_NEWWINDOW/*Open [ExternalLink] in new window*/."\" hspace=\"4\" height=\"11\" /></a>":"")."<a href=\"$tag\" $nofollow>$text</a>";
             }
+            // is this a relative link? ie, does it contain '/'?
+            else if (strpos($tag,'/')!==false) {
+                $tag = str_replace("&", "&amp;", $tag);
+                $this->outlinks[]=$tag;
+                if($this->nofollow)$nofollow=" rel=\"nofollow\"";
+		return ($icon?"<a href=\"$tag\" target=\"_blank\" $nofollow><img src=\"".$this->tinyHref("/images/www.gif")."\" width=\"11\" border=\"0\" alt=\"[External Link]\" title=\""._MI_NEWWINDOW/*Open [ExternalLink] in new window*/."\" hspace=\"4\" height=\"11\" /></a>":"")."<a href=\"$tag\" $nofollow>$text</a>";
+            }
             // check for email addresses
             else if (preg_match("/^.+\@.+\..+$/", $tag)) {
                 $tag = "mailto:".$tag;
