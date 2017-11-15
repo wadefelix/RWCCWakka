@@ -137,12 +137,6 @@ if (!function_exists("wakka2callback"))
             {
                 list(,$language, $args) = $matches2;
             }
-			switch ($language)
-			{
-            case "vim":
-                    $formatter = "vim";
-                break;
-			}
             if(!$language){
                 $output = "<pre class=\"code\">";
                 $output .= $wakka->Format(trim($code), "code", $args);
@@ -154,7 +148,7 @@ if (!function_exists("wakka2callback"))
             }
             else if($language=="vim"){
                 $output = "<pre class=\"code\">";
-			    $output .= $wakka->Format(trim($code), $formatter, $args);
+			    $output .= $wakka->Format(trim($code), 'vim', $args);
                 $output .= "</pre>";
             }else{
             include_once "./libs/geshi/geshi.php";
