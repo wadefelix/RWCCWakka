@@ -304,7 +304,7 @@
             //preprocess the body
             $body = $this->PrePBody($body);
             $page=$this->LoadPage($tag);
-            if($aliasname===false)
+            if($aliasname===false) {
                 $aliasname=$page['aliasname'];
             }
             if($bad=$this->HasBadWords($body)){
