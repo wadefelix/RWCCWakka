@@ -19,7 +19,7 @@
         var $nofollow=false;
         // constructor
         function Wakka($config) {
-	    $this->starttime=$this->GetMicroTime();
+            $this->starttime=$this->GetMicroTime();
             $this->config = $config;
             $this->dblink = new mysqli($this->config["mysql_host"], $this->config["mysql_user"], $this->config["mysql_password"],$this->config["mysql_database"]);
             #mysql_select_db($this->config["mysql_database"], $this->dblink);
@@ -116,7 +116,9 @@
             }
             // load page
             if ($page === null || (!isset($page['body']) && isset($page['id'])))//if it is "really" null(not cached) or only is it cached id
-            $page = $this->LoadSingle("select * from ".$this->config["table_prefix"]."pages where tag = '".mysqli_real_escape_string($this->dblink,$tag)."' ".($time ? "and time = '".mysqli_real_escape_string($this->dblink,$time)."'" : "and latest = 'Y'")." limit 1");
+            {
+                $page = $this->LoadSingle("select * from ".$this->config["table_prefix"]."pages where tag = '".mysqli_real_escape_string($this->dblink,$tag)."' ".($time ? "and time = '".mysqli_real_escape_string($this->dblink,$time)."'" : "and latest = 'Y'")." limit 1");
+            }
             // cache result
             if (!$time)
                 $this->CachePage($page, $tag);
@@ -130,7 +132,9 @@
             }
             // load page
             if ($page === null)//if it is "really" null(not cached)
-            $page = $this->LoadSingle("select id,aliasname from ".$this->config["table_prefix"]."pages where tag = '".mysqli_real_escape_string($this->dblink,$tag)."' ".($time ? "and time = '".mysqli_real_escape_string($this->dblink,$time)."'" : "and latest = 'Y'")." limit 1");
+            {
+                $page = $this->LoadSingle("select id,aliasname from ".$this->config["table_prefix"]."pages where tag = '".mysqli_real_escape_string($this->dblink,$tag)."' ".($time ? "and time = '".mysqli_real_escape_string($this->dblink,$time)."'" : "and latest = 'Y'")." limit 1");
+            }
             // cache result
             if (!$time)
                 $this->CachePage($page, $tag);
@@ -212,24 +216,24 @@
         function LoadAllPages() {
             return $this->LoadAll("select * from ".$this->config["table_prefix"]."pages where latest = 'Y' order by tag");
         }
-	/**
-	*
-	* This is the short Description for the Function
-	*
-	* This is the long description for the Class
-	*
-	* @return	mixed	 Description
-	* @access	public
-	* @see		??
-	*/
-	function LoadAllPages_tiny(){
-		$pages=$this->LoadAll("select id,tag,aliasname,comment_on from ".$this->config["table_prefix"]."pages where latest = 'Y' order by tag");
-		foreach($pages as $page){
-			if($page['tag']!=$this->tag)
-			$this->CachePage($page);		
-		}
-		return $pages;
-	}
+    	/**
+    	*
+    	* This is the short Description for the Function
+    	*
+    	* This is the long description for the Class
+    	*
+    	* @return	mixed	 Description
+    	* @access	public
+    	* @see		??
+    	*/
+    	function LoadAllPages_tiny(){
+    		$pages=$this->LoadAll("select id,tag,aliasname,comment_on from ".$this->config["table_prefix"]."pages where latest = 'Y' order by tag");
+    		foreach($pages as $page){
+    			if($page['tag']!=$this->tag)
+    			$this->CachePage($page);		
+    		}
+    		return $pages;
+    	}
         function FullTextSearch($phrase) {
             return $this->LoadAll("select * from ".$this->config["table_prefix"]."pages where latest = 'Y' and match(tag, body) against('".mysqli_real_escape_string($this->dblink,$phrase)."')");
         }
@@ -271,16 +275,17 @@
         function HasBadWords($text){
             if(!$this->badwordlist){
                 $lines = file("badwords.conf");
-        if(is_array($localbad=@file("local/badwords.conf")))
-		$lines =@array_merge($lines,$localbad);
-		if($lines) {
-                foreach ($lines as $line) {
-                    if ($line = trim($line)) {
-                        $this->badwordlist[]=$line;
+                if(is_array($localbad=@file("local/badwords.conf"))) {
+            		$lines =@array_merge($lines,$localbad);
+            	}
+    		    if($lines) {
+                    foreach ($lines as $line) {
+                        if ($line = trim($line)) {
+                            $this->badwordlist[]=$line;
+                        }
                     }
+                    $this->badwordlist=array_unique($this->badwordlist);
                 }
-                $this->badwordlist=array_unique($this->badwordlist);
-            }
             }
             //die($this->badwordlist);
             foreach($this->badwordlist as $item){
@@ -290,16 +295,20 @@
             
         }
         function SavePage($tag, $body, $comment_on = "", $tinychange = "N", $note = "", $aliasname = false) {
-            if(preg_match("#^CCW_SYS_#i",$tag))$this->Redirect($this->href("", $this->config["root_page"]));
+            if(preg_match("#^CCW_SYS_#i",$tag)) {
+                $this->Redirect($this->href("", $this->config["root_page"]));
+            }
             $today = date("D F j, Y, g:i a");
             // get current user
             $user = $this->GetUserName();
             //preprocess the body
             $body = $this->PrePBody($body);
-	    $page=$this->LoadPage($tag);
-		if($aliasname===false)$aliasname=$page['aliasname'];
+            $page=$this->LoadPage($tag);
+            if($aliasname===false)
+                $aliasname=$page['aliasname'];
+            }
             if($bad=$this->HasBadWords($body)){
-	    	$this->SetMessage(_MI_NOT_SAVE_BADWORDS.$bad);
+	    	    $this->SetMessage(_MI_NOT_SAVE_BADWORDS.$bad);
                 return;
             }
             // TODO: check write privilege
@@ -339,7 +348,7 @@
             }
              
             $this->WriteRecentChangesXML();
-	    return true;
+	        return true;
         }
         // Log
 	/**
@@ -383,17 +392,17 @@
 	}
         // COOKIES
         function SetSessionCookie($name, $value) {
-	    $cpath=str_replace(basename($HTTP_SERVER_VARS['PHP_SELF']),"",$HTTP_SERVER_VARS['PHP_SELF']);
+	        $cpath=str_replace(basename($HTTP_SERVER_VARS['PHP_SELF']),"",$HTTP_SERVER_VARS['PHP_SELF']);
             SetCookie($name, $value, 0, $cpath);
             $_COOKIE[$name] = $value;
         }
         function SetPersistentCookie($name, $value) {
-	    $cpath=str_replace(basename($HTTP_SERVER_VARS['PHP_SELF']),"",$HTTP_SERVER_VARS['PHP_SELF']);
+            $cpath=str_replace(basename($HTTP_SERVER_VARS['PHP_SELF']),"",$HTTP_SERVER_VARS['PHP_SELF']);
             SetCookie($name, $value, time() + 90 * 24 * 60 * 60, $cpath);
             $_COOKIE[$name] = $value;
         }
         function DeleteCookie($name) {
-	    $cpath=str_replace(basename($HTTP_SERVER_VARS['PHP_SELF']),"",$HTTP_SERVER_VARS['PHP_SELF']);
+	        $cpath=str_replace(basename($HTTP_SERVER_VARS['PHP_SELF']),"",$HTTP_SERVER_VARS['PHP_SELF']);
             SetCookie($name, "", 1, $cpath);
             $_COOKIE[$name] = "";
         }
@@ -450,10 +459,12 @@
             return $url.$source;
         }
         function Link($tag, $method = "", $text = "", $track = 1, $icon = true) {
-             if($this->env['no_icon'])
-		$icon=false;
-            if (!$text)
+            if($this->env['no_icon']) {
+        		$icon=false;
+        	}
+            if (!$text) {
                 $text = $this->GetDisplayName($tag);
+            }
             // is this an interwiki link?
             //if (preg_match("/^([A-Z][A-Z,a-z]+)[:]([A-Z][a-z]+[A-Z,0-9][A-Z,a-z,0-9]*)$/", $tag, $matches))
             if (preg_match("/^([A-Z][A-Z,a-z]+)[:](.*)$/", $tag, $matches )) {
@@ -469,8 +480,10 @@
                 }
                 $tag = str_replace("&", "&amp;", $tag);
                 $this->outlinks[]=$tag;
-                if($this->nofollow)$nofollow=" rel=\"nofollow\"";
-		return ($icon?"<a href=\"$tag\" target=\"_blank\" $nofollow><img src=\"".$this->tinyHref("/images/www.gif")."\" width=\"11\" border=\"0\" alt=\"[External Link]\" title=\""._MI_NEWWINDOW/*Open [ExternalLink] in new window*/."\" hspace=\"4\" height=\"11\" /></a>":"")."<a href=\"$tag\" $nofollow>$text</a>";
+                if($this->nofollow) {
+                    $nofollow=" rel=\"nofollow\"";
+                }
+		        return ($icon?"<a href=\"$tag\" target=\"_blank\" $nofollow><img src=\"".$this->tinyHref("/images/www.gif")."\" width=\"11\" border=\"0\" alt=\"[External Link]\" title=\""._MI_NEWWINDOW/*Open [ExternalLink] in new window*/."\" hspace=\"4\" height=\"11\" /></a>":"")."<a href=\"$tag\" $nofollow>$text</a>";
             }
             // check for email addresses
             else if (preg_match("/^.+\@.+\..+$/", $tag)) {
@@ -486,8 +499,7 @@
             return "<a href=\"$tag\">$text</a>";
             }*/
              
-            else
-                {
+            else {
                 if (preg_match("/^(.*?)[#](.*?)$/", $tag, $matches)) {
                     //By cooyeah
                     //print_r($matches);
@@ -542,7 +554,9 @@
             $_SESSION["linktracking"] = 0;
         }
         function WriteLinkTable($tag="") {
-	    if(!$tag)$tag=$this->GetPageTag();
+	        if(!$tag) {
+	            $tag=$this->GetPageTag();
+	        }
             // delete old link table
             $this->Query("delete from ".$this->config["table_prefix"]."links where from_tag = '".mysqli_real_escape_string($this->dblink,$tag)."'");
             if ($linktable = $this->GetLinkTable()) {
@@ -579,12 +593,13 @@
          
         // INTERWIKI STUFF
         function ReadInterWikiConfig() {
-        $lines = file("interwiki.conf");
-	    $local_lines=@file("local/interwiki.conf");
-        if(is_array($local_lines))
-        $lines=array_merge($lines,$local_lines);
+            $lines = file("interwiki.conf");
+    	    $local_lines=@file("local/interwiki.conf");
+            if(is_array($local_lines)) {
+                $lines=array_merge($lines,$local_lines);
+            }
 	    
-        if($lines) {
+            if($lines) {
                 foreach ($lines as $line) {
                     if ($line = trim($line)) {
                         list($wikiName, $wikiUrl) = explode(" ", trim($line));
@@ -626,60 +641,68 @@
             return ($item?$count[$item]:$count);
         }
         function GetEditCount($tag = "") {
-	    if (!$tag)$tag = $this->GetPageTag();
+            if (!$tag) {
+                $tag = $this->GetPageTag();
+            }
             if ($this->temp["revisions_count"] == null){
-            $count = count($this->LoadAll("select id from ".$this->GetConfigValue("table_prefix")."pages where tag='".mysqli_real_escape_string($this->dblink,$tag)."';"));
-	    $this->temp["revisions_count"]=$count;
-	    }
-            else $count = $this->temp["revisions_count"];
+                $count = count($this->LoadAll("select id from ".$this->GetConfigValue("table_prefix")."pages where tag='".mysqli_real_escape_string($this->dblink,$tag)."';"));
+                $this->temp["revisions_count"]=$count;
+            } else {
+                $count = $this->temp["revisions_count"];
+            }
             return $count;
         }
-	// FILES
-	/**
-	*
-	* This is the short Description for the Function
-	*
-	* This is the long description for the Class
-	*
-	* @return	mixed	 Description
-	* @access	public
-	* @see		??
-	*/
-	function GetPageFiles($tag=""){
-	$files=array();
-	if(!$tag)$tag=$this->GetPageTag();
-	$dirpath=$this->GetPageUploadDir($tag);
-	if(!is_dir($dirpath))return false;
-	if ($handle = opendir($dirpath)) 
-	{
-	while (false !== ($file = readdir($handle))) 
-	if ($file != "." && $file != ".." && !is_dir($file)){
-	$filesArr[]=array(
-	'name' => trim($file),
-	'url' => $this->href('files.xml', $tag, 'action=download&file='.urlencode(trim($file)))
-	);
-	}
-	closedir($handle);
-	}  
-	return $filesArr;
-	}
-	/**
-	*
-	* This is the short Description for the Function
-	*
-	* This is the long description for the Class
-	*
-	* @return	mixed	 Description
-	* @access	public
-	* @see		??
-	*/
-	function GetPageUploadDir($tag="",$exist=true){
-	if(!$tag)$tag=$this->GetPageTag();
-	$upload_path = $this->config['upload_path'].'/'.$tag;
-	if(is_dir($upload_path) || !$exist)return $upload_path;
-	else
-	return false;
-	}
+        // FILES
+        /**
+        *
+        * This is the short Description for the Function
+        *
+        * This is the long description for the Class
+        *
+        * @return	mixed	 Description
+        * @access	public
+        * @see		??
+        */
+        function GetPageFiles($tag=""){
+            $files=array();
+            if(!$tag) {
+                $tag=$this->GetPageTag();
+            }
+            $dirpath=$this->GetPageUploadDir($tag);
+            if(!is_dir($dirpath)) {
+                return false;
+            }
+            if ($handle = opendir($dirpath)) 
+            {
+                while (false !== ($file = readdir($handle))) {
+                    if ($file != "." && $file != ".." && !is_dir($file)){
+                        $filesArr[] = array(
+                            'name' => trim($file),
+                            'url' => $this->href('files.xml', $tag, 'action=download&file='.urlencode(trim($file)))
+                        );
+                    }
+                }
+                closedir($handle);
+            }
+            return $filesArr;
+        }
+        /**
+        *
+        * This is the short Description for the Function
+        *
+        * This is the long description for the Class
+        *
+        * @return	mixed	 Description
+        * @access	public
+        * @see		??
+        */
+        function GetPageUploadDir($tag="",$exist=true){
+            if(!$tag) {
+                $tag=$this->GetPageTag();
+            }
+            $upload_path = $this->config['upload_path'].'/'.$tag;
+            return (is_dir($upload_path) || !$exist) ? $upload_path : false;
+        }
         // REFERRERS
         function LogReferrer($tag = "", $referrer = "") {
             // fill values
@@ -808,13 +831,13 @@
         }
         function SetUser($user,$remember=false) {
             $_SESSION["user"] = $user;
-	    if($remember){
-            $this->SetPersistentCookie("name", $user["name"]);
-            $this->SetPersistentCookie("password", $user["password"]);
-	    }else{
-	    $this->SetSessionCookie("name", $user["name"]);
-            $this->SetSessionCookie("password", $user["password"]);
-	    }
+            if($remember){
+                $this->SetPersistentCookie("name", $user["name"]);
+                //$this->SetPersistentCookie("password", $user["password"]);
+            }else{
+                $this->SetSessionCookie("name", $user["name"]);
+                //$this->SetSessionCookie("password", $user["password"]);
+            }
         }
         function LogoutUser() {
             $_SESSION["user"] = "";
@@ -1161,57 +1184,68 @@
             }
             return $result['b'];
         }
-	/**
-	*
-	* Log the trace of user
-	*
-	*/
-	function LogTrace($tag="") {
-	if(!$tag)$tag=$this->tag;
-	if(!$_SESSION['trace_p']){
-	$_SESSION['trace']=array();
-	$_SESSION['trace'][0]=$tag;
-	$_SESSION['trace_p']=1;  //i don't know why i can't use count(), so i use this var.
-	return;
-	}
-	$m_remove=false;
-	$m_count=$_SESSION['trace_p'];
-	for($i=0;$i<$m_count;$i++){
-	  if($m_remove)$_SESSION['trace'][$i-1]=$_SESSION['trace'][$i];
-	  if($_SESSION['trace'][$i]==$tag)$m_remove=true;
-	}
-	if($m_remove)$_SESSION['trace'][$m_count-1]=$tag;
-	else {
-	  if($m_count>=$this->GetConfigValue("max_trace")){
-	  	for($i=1;$i<$m_count;$i++)$_SESSION['trace'][$i-1]=$_SESSION['trace'][$i];
-	  	$_SESSION['trace'][$m_count-1]=$tag;
-		return;
-	  }
-			    
-	  $_SESSION['trace'][$m_count]=$tag;
-	  $_SESSION['trace_p']++;
-	}
-	/*// used to reset when debug
-	$_SESSION['trace']="";
-	$_SESSION['trace_p']="";
-	*/
-	}
+        /**
+        *
+        * Log the trace of user
+        *
+        */
+        function LogTrace($tag="") {
+            if(!$tag) {
+                $tag=$this->tag;
+            }
+            if(!$_SESSION['trace_p']){
+                $_SESSION['trace']=array();
+                $_SESSION['trace'][0]=$tag;
+                $_SESSION['trace_p']=1;  //i don't know why i can't use count(), so i use this var.
+                return;
+            }
+            $m_remove=false;
+            $m_count=$_SESSION['trace_p'];
+            for($i=0;$i<$m_count;$i++){
+                if($m_remove)$_SESSION['trace'][$i-1]=$_SESSION['trace'][$i];
+                if($_SESSION['trace'][$i]==$tag)$m_remove=true;
+            }
+            if($m_remove) {
+                $_SESSION['trace'][$m_count-1]=$tag;
+            } else {
+                if($m_count>=$this->GetConfigValue("max_trace")){
+                  	for($i=1;$i<$m_count;$i++) {
+                  	    $_SESSION['trace'][$i-1]=$_SESSION['trace'][$i];
+                  	}
+                  	$_SESSION['trace'][$m_count-1]=$tag;
+                    return;
+                }
+                
+                $_SESSION['trace'][$m_count]=$tag;
+                $_SESSION['trace_p']++;
+            }
+            /*// used to reset when debug
+            $_SESSION['trace']="";
+            $_SESSION['trace_p']="";
+            */
+        }
         // THE BIG EVIL NASTY ONE!
         function Run($tag, $method = "") {
-            if(preg_match("#^CCW_SYS_#i",$tag))$this->Redirect($this->href("", $this->config["root_page"]));
+            if(preg_match("#^CCW_SYS_#i",$tag)) {
+                $this->Redirect($this->href("", $this->config["root_page"]));
+            }
             //$this->Maintenance(); // TODO: maybe only do this occasionally?
             $this->ReadInterWikiConfig();
             // do our stuff!
-            if (!$this->method = trim($method))
+            if (!$this->method = trim($method)) {
                 $this->method = "show";
-            if (!$this->tag = trim($tag))
+            }
+            if (!$this->tag = trim($tag)) {
                 $this->Redirect($this->href("", $this->config["root_page"]));
-            if ((!$this->GetUser() && $_COOKIE["name"]) && ($user = $this->LoadUser($_COOKIE["name"], $_COOKIE["password"])))
-                $this->SetUser($user);
+            }
+            // if ((!$this->GetUser() && $_COOKIE["name"]) && ($user = $this->LoadUser($_COOKIE["name"], $_COOKIE["password"]))) {
+            //     $this->SetUser($user);
+            // }
             $this->LogReferrer($tag);
             $this->SetPage($this->LoadPage($tag, $_REQUEST["time"]));
-            if ($this->page)
-		$this->LogTrace($this->page['comment_on']);//if comment_on is not null then log the page which the comment belongs to. 
+            if ($this->page) {
+                $this->LogTrace($this->page['comment_on']);//if comment_on is not null then log the page which the comment belongs to.
+            } 
             if (!preg_match("/\.[\S]+$/", $this->method)) {
                 print($this->Header().$this->Method($this->method).$this->Footer());
             } else {
