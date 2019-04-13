@@ -413,7 +413,7 @@ class GeSHi
      *               {@link GeSHi::set_language_path()}
      * @since 1.0.0
 	 */
-	function GeSHi ($source, $language, $path = '')
+	function __construct($source, $language, $path = '')
 	{
 		$this->set_source($source);
         $this->set_language_path($path);
