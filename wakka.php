@@ -11,6 +11,8 @@
     //CooYip cooyeah@gmail.com
     // $Id: wakka.php,v 1.10 2005/12/23 04:33:53 cooyeah Exp $
      
+    @error_reporting(E_ALL&~E_WARNING&~E_NOTICE);
+
     require("./libs/clswakka.php");
     define("WAKKA_VERSION", "0.1.2");
     define("COO_VERSION", "0.0.9rc3");
@@ -21,7 +23,6 @@
     Jan 2005
     */
      
-    @error_reporting(E_ALL^E_NOTICE);
      
     // stupid version check
     if (!isset($_REQUEST))

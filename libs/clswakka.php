@@ -18,10 +18,11 @@
 	    var $starttime;
         var $nofollow=false;
         // constructor
-        function Wakka($config) {
+        function __construct($config) {
             $this->starttime=$this->GetMicroTime();
             $this->config = $config;
             $this->dblink = new mysqli($this->config["mysql_host"], $this->config["mysql_user"], $this->config["mysql_password"],$this->config["mysql_database"]);
+	    if (array_key_exists("mysql_charset",$this->config)) {$this->dblink->set_charset($this->config["mysql_charset"]);}
             #mysql_select_db($this->config["mysql_database"], $this->dblink);
             $this->VERSION = COO_VERSION;
         }
