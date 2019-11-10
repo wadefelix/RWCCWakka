@@ -72,7 +72,7 @@
         magicQuotesSuck($_REQUEST);
     }
      
-    $def_base_url = "http://".$_SERVER["SERVER_NAME"].($_SERVER["SERVER_PORT"] != 80 ? ":".$_SERVER["SERVER_PORT"] : "").$_SERVER["REQUEST_URI"].(preg_match("/".preg_quote("wakka.php")."$/", $_SERVER["REQUEST_URI"]) ? "?wakka=" : "");
+    $def_base_url = "//".$_SERVER["SERVER_NAME"].($_SERVER["SERVER_PORT"] != 80 ? ":".$_SERVER["SERVER_PORT"] : "").$_SERVER["REQUEST_URI"].(preg_match("/".preg_quote("wakka.php")."$/", $_SERVER["REQUEST_URI"]) ? "?wakka=" : "");
     if (preg_match("/^(.*?)wakka.php(.*?)$/", $def_base_url, $matches))$def_base_path = $matches[1];
     else $def_base_path = $def_base_url;
     // default configuration values
