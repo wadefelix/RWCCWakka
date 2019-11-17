@@ -136,7 +136,7 @@ class HTML_QuickForm_Renderer_Default extends HTML_QuickForm_Renderer
     */
     function __construct()
     {
-        $this->HTML_QuickForm_Renderer();
+        HTML_QuickForm_Renderer::__construct();
     } // end constructor
 
    /**

@@ -47,7 +47,7 @@ class HTML_QuickForm_input extends HTML_QuickForm_element
      */
     function __construct($elementName=null, $elementLabel=null, $attributes=null)
     {
-        $this->__construct($elementName, $elementLabel, $attributes);
+        HTML_QuickForm_element::__construct($elementName, $elementLabel, $attributes);
     } //end constructor
 
     // }}}

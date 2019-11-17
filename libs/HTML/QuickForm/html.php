@@ -42,7 +42,7 @@ class HTML_QuickForm_html extends HTML_QuickForm_static
     */
     function __construct($text = null)
     {
-        $this->HTML_QuickForm_static(null, null, $text);
+        HTML_QuickForm_static::__construct(null, null, $text);
         $this->_type = 'html';
     }
 
