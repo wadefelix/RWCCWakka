@@ -118,7 +118,7 @@ class HTML_QuickForm_Renderer_ArraySmarty extends HTML_QuickForm_Renderer_Array
     *
     * @access public
     */
-    function HTML_QuickForm_Renderer_ArraySmarty(&$tpl)
+    function __construct(&$tpl)
     {
         $this->HTML_QuickForm_Renderer_Array(true);
         $this->_tpl = $tpl;

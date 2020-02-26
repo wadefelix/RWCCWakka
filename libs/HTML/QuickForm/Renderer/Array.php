@@ -137,7 +137,7 @@ class HTML_QuickForm_Renderer_Array extends HTML_QuickForm_Renderer
     * @param  bool    true: collect all hidden elements into string; false: process them as usual form elements
     * @access public
     */
-    function HTML_QuickForm_Renderer_Array($collectHidden = false)
+    function __construct($collectHidden = false)
     {
         $this->HTML_QuickForm_Renderer();
         $this->_collectHidden = $collectHidden;
