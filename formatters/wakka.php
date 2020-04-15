@@ -23,6 +23,8 @@ $coo_pat2="/(".
           "|\/\/".
           "|======.*?======|=====.*?=====|====.*?====|===.*?===|==.*?==".
           "|\[HTML\].*?\[\/HTML\]".
+          "|\[MARKDOWN\].*?\[\/MARKDOWN\]".
+          "|\[MD\].*?\[\/MD\]".
           "|\[IMG\].*?\[\/IMG\]".
 	  "|\[DEL\].*?\[\/DEL\]".
           "|`.*?`".
@@ -69,7 +71,15 @@ if (!function_exists("wakka2callback"))
 			$matches[1] = str_replace("&quot;", "\"", $matches[1]);
 			$result=strip_tags($matches[1],$wakka->GetConfigValue("AllowHtmlTags"));
 			return $result;
-		}else if (preg_match("/^\[DEL\](.*?)\[\/DEL\]$/is",$thing,$matches))
+		}else if (preg_match("/^\[MD\](.*?)\[\/MD\]$/is",$thing,$matches))
+                {
+                        require_once './libs/php-markdown/Michelf/Markdown.inc.php';
+                        return Michelf\Markdown::defaultTransform($matches[1]);
+                }else if (preg_match("/^\[MARKDOWN\](.*?)\[\/MARKDOWN\]$/is",$thing,$matches))
+                {
+                        require_once './libs/php-markdown/Michelf/Markdown.inc.php';
+                        return Michelf\Markdown::defaultTransform($matches[1]);
+                }else if (preg_match("/^\[DEL\](.*?)\[\/DEL\]$/is",$thing,$matches))
 		{
 			$dualp=preg_replace_callback($coo_pat,"wakka2callback",$matches[1]);
 			return "<strike>".$dualp."</strike>";
