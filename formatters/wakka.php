@@ -236,7 +236,7 @@ if (!function_exists("wakka2callback"))
         // inline code
         else if (preg_match("/^`(.*)`$/s", $thing, $matches))
         {
-            return '<code>'.$matches[1].'</code>';
+            return '<code>'.htmlentities($matches[1]).'</code>';
         }
 	// notes
         else if (preg_match("/^\'\'(.*?)\'\'(\[\[(.*?)\]\]){0,1}$/",$thing,$matches)) {
