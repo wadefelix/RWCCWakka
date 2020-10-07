@@ -53,25 +53,6 @@
     else
         ini_set("include_path", ".:./local/libs/:./libs/:".$include_path);
      
-    // workaround for the amazingly annoying magic quotes.
-    function magicQuotesSuck(&$a) {
-        if (is_array($a)) {
-            foreach ($a as $k => $v) {
-                if (is_array($v))
-                    magicQuotesSuck($a[$k]);
-                else
-                    $a[$k] = stripslashes($v);
-            }
-        }
-    }
-    // set_magic_quotes_runtime(0);
-    if (get_magic_quotes_gpc()) {
-        magicQuotesSuck($_POST);
-        magicQuotesSuck($_GET);
-        magicQuotesSuck($_COOKIE);
-        magicQuotesSuck($_REQUEST);
-    }
-     
     $def_base_url = "//".$_SERVER["SERVER_NAME"].($_SERVER["SERVER_PORT"] != 80 ? ":".$_SERVER["SERVER_PORT"] : "").$_SERVER["REQUEST_URI"].(preg_match("/".preg_quote("wakka.php")."$/", $_SERVER["REQUEST_URI"]) ? "?wakka=" : "");
     if (preg_match("/^(.*?)wakka.php(.*?)$/", $def_base_url, $matches))$def_base_path = $matches[1];
     else $def_base_path = $def_base_url;
