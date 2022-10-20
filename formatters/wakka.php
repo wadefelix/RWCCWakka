@@ -25,7 +25,7 @@ $coo_pat2="/(".
           "|\[HTML\].*?\[\/HTML\]".
           "|\[MARKDOWN\].*?\[\/MARKDOWN\]".
           "|\[MD\].*?\[\/MD\]".
-          "|\[IMG\].*?\[\/IMG\]".
+          "|\[IMG[^\]]*\].*?\[\/IMG\]".
 	  "|\[DEL\].*?\[\/DEL\]".
           "|`.*?`".
 	"|\[LEFT].*?\[\/LEFT\]|\[RIGHT].*?\[\/RIGHT\]|\[CENTER].*?\[\/CENTER\]".
@@ -180,18 +180,23 @@ if (!function_exists("wakka2callback"))
 			$br=1;
 			return $ret;
 		}
-		else if (preg_match("/^\[IMG\](.*)\[\/IMG\]$/is", $thing, $matches))
+		else if (preg_match("/^\[IMG([^\]]*)\](.*)\[\/IMG\]$/is", $thing, $matches))
 		{
-			$matches[1] = str_replace("&quot;", "\"", $matches[1]);
+			$matches[2] = str_replace("&quot;", "\"", $matches[2]);
 			$localimages=$wakka->GetPageFiles();
-			if(is_array($localimages))
-			foreach($localimages as $item){
-			if($item['name']==$matches[1]){
-			$matches[1]=$item['url'];
-			break;
+			if(is_array($localimages)){
+				foreach($localimages as $item){
+					if($item['name']==$matches[2]){
+						$matches[2]=$item['url'];
+						break;
+					}
+				}
 			}
+			if (strlen($matches[1])>0){
+				// width and height
+			    return "<img class=\"image\" src=\"".$matches[2]."\" ".$matches[1].">";
 			}
-			return "<img class=\"image\" src=\"".$matches[1]."\">";
+			return "<img class=\"image\" src=\"".$matches[2]."\">";
 		}
 		else if (preg_match("/^\[LEFT\](.*)\[\/LEFT\]$/is", $thing, $matches))
 		{
