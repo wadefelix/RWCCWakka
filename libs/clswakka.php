@@ -463,7 +463,7 @@
             return $url.$source;
         }
         function Link($tag, $method = "", $text = "", $track = 1, $icon = true) {
-            if($this->env['no_icon']) {
+            if($this->config['no_icon']) {
         		$icon=false;
         	}
             if (!$text) {

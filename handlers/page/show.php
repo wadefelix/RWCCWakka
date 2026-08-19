@@ -26,9 +26,7 @@
              
              
             // display page
-            $this->env['para_edit']=false;
             $pbody = $this->Format($this->page["body"], "wakka");
-            $this->env['para_edit']=false;
             $pedit_html="<a href=\"".$this->Href("edit","","para=")."\\1\">edit</a>";
             $pbody = preg_replace("#-\rspara([0-9]+)\r\|#",$pedit_html,$pbody);
             print($pbody);
